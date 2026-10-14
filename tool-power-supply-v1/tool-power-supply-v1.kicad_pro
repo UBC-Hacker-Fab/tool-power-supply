@@ -8,7 +8,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "draft 1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -56,7 +56,7 @@
         0,
         1,
         0,
-        2,
+        1,
         2,
         2,
         2
@@ -147,14 +147,14 @@
       ],
       [
         0,
-        2,
+        1,
         1,
         2,
         0,
         0,
         1,
         0,
-        2,
+        1,
         2,
         2,
         2
@@ -256,7 +256,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Hackerfab_Power_Board.kicad_pro",
+    "filename": "tool-power-supply-v1.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -294,6 +294,7 @@
       "netlist": "",
       "plot": "",
       "specctra_dsn": "",
+      "step": "",
       "vrml": ""
     },
     "page_layout_descr_file": ""
@@ -357,6 +358,18 @@
         },
         {
           "group_by": true,
+          "label": "Exclude from Simulation",
+          "name": "${EXCLUDE_FROM_SIM}",
+          "show": true
+        },
+        {
+          "group_by": true,
+          "label": "Exclude from Position Files",
+          "name": "${EXCLUDE_FROM_POS_FILES}",
+          "show": true
+        },
+        {
+          "group_by": true,
           "label": "Footprint",
           "name": "Footprint",
           "show": true
@@ -411,18 +424,34 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "Hackerfab_Power_Board.kicad_sch",
-        "name": "Root",
-        "uuid": "81e2e1fb-1433-49c2-babb-9e65168bba6e"
+        "filename": "tool-power-supply-v1.kicad_sch",
+        "name": "tool-power-supply-v1",
+        "uuid": "38374745-796d-4ac0-8538-65a2602e3d35"
       }
     ],
-    "used_designators": "",
+    "used_designators": "PS1",
     "variants": []
   },
   "sheets": [
     [
-      "81e2e1fb-1433-49c2-babb-9e65168bba6e",
-      "Root"
+      "38374745-796d-4ac0-8538-65a2602e3d35",
+      "tool-power-supply-v1"
+    ],
+    [
+      "76343c8c-587b-4496-90a3-2339f5d9223c",
+      "mains"
+    ],
+    [
+      "0cb51aae-028b-431a-91a3-4936dff542ce",
+      "bus12v"
+    ],
+    [
+      "a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc",
+      "rails"
+    ],
+    [
+      "206c7205-b94b-43bb-821d-cceaa2e78164",
+      "mcu"
     ]
   ],
   "text_variables": {},
