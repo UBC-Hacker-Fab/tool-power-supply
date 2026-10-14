@@ -1,5 +1,7 @@
 # Rev 1 block diagram (2026-10-14)
 
+An SVG render is in `block-diagram.svg` (Graphviz source: `block-diagram.dot`, regenerate with `dot -Tsvg block-diagram.dot -o block-diagram.svg`).
+
 Mermaid source (renders on GitHub and in most Markdown viewers). Built from `design-decisions.md`, `bom.md` and `pin-map.md`. Dashed lines are signals, solid lines are power.
 
 ```mermaid

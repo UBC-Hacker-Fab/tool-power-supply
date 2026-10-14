@@ -1,5 +1,7 @@
 # Design Decisions (working memory)
 
+The root `README.md` is the public first point of contact. Keep it in sync with this file when decisions, architecture, BOM, schematic status or open items change.
+
 Last updated: 2026-10-11. Source spec is the Notion page "Power Board Spec Sheet" (HackerFab Central / Electrical): https://app.notion.com/p/38d37907206980e6a0a9c241ee033941. The local PDF copy was deleted; re-fetch the Notion page with the Notion MCP for the latest. Fab and PCBA both through JLC; LCSC PNs found with the pcbparts MCP. Through-hole parts the user is happy to hand-assemble can come from Digikey/Mouser instead of LCSC. Datasheets that matter live in `datasheets/` (`tps2595.pdf`, `tps2561.pdf`; both parts were evaluated and rejected, see below).
 
 ## Decided
@@ -217,3 +219,6 @@ Extended-part fee applies once per unique extended part (LCSC parts only; the ha
 
 ## Schematic status (2026-10-14)
 First draft generated into `tool-power-supply-v1/` (root plus sheets `mains`, `bus12v`, `rails`, `mcu`) by `tools/schematic/build.py`. Verified with `kicad-cli`: loads cleanly, ERC shows 0 errors and 2 warnings (Pico GND/AGND power-output pins tied to the module's -VO output pin; the project's ERC matrix was relaxed from error to warning for Output vs Power-output and Power-output vs Power-output), the exported netlist matches the intended pin-to-net map for every pin (79 nets, no single-node nets), all footprints resolve. Not yet reviewed visually in the KiCad GUI. Known simplifications: auto-grid placement with label stubs on every pin; AO4407C drawn with the stock FDS9435A SO-8 P-FET symbol; fuses are virtual (not on board) between the clip and holder components; X2 cap, Pico sockets, test points and the P-FET gate clamp are not in the schematic yet; AGND is tied to GND at the Pico. Regenerating overwrites manual edits.
+
+### Schematic v2 (hierarchical, 2026-10-14)
+`tools/schematic/build2.py` regenerates the schematic as wired functional blocks per sheet with sheet pins and bus groups (I2C, EN, SENSE, FAULT, FAN) instead of global labels. Netlist identical to the v1 draft (79 nets, 0 missing / 0 extra against `design.py`), ERC 0 errors and the same 2 warnings. Remaining cosmetic text overlaps are left for manual nudging in KiCad.

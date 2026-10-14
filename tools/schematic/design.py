@@ -43,8 +43,8 @@ def mk(name,title):
 # ---------------- MAINS ----------------
 m=mk('mains','Mains zone: AC in/out, fuses, module, current sense')
 m.section('AC input and AC output (barrier strips)',[
-  Comp('HF_Connectors:HB9500-9.5-3P','HB9500M-9.5-03P (AC IN: L N PE)',{'1':'L_IN','2':'N_IN','3':'PE'},'TerminalBlock_Ningbo-Kagnex:TerminalBlock_Ningbo-Kagnex_HB9500M_1x03_P9.5mm',prefix='J',props={'LCSC':'C162697','MPN':'HB9500M-9.5-03P-13-00A','Manufacturer':'Kangnex','Note':'HF symbol is the HB9500; stock HB9500M footprint used'}),
-  Comp('HF_Connectors:HB9500-9.5-3P','HB9500M-9.5-03P (AC OUT: L N PE)',{'1':'L_OUT','2':'N_IN','3':'PE'},'TerminalBlock_Ningbo-Kagnex:TerminalBlock_Ningbo-Kagnex_HB9500M_1x03_P9.5mm',prefix='J',props={'LCSC':'C162697','MPN':'HB9500M-9.5-03P-13-00A','Manufacturer':'Kangnex'}),
+  Comp('HF_Connectors:HB9500-9.5-3P','AC IN (L, N, PE)',{'1':'L_IN','2':'N_IN','3':'PE'},'TerminalBlock_Ningbo-Kagnex:TerminalBlock_Ningbo-Kagnex_HB9500M_1x03_P9.5mm',prefix='J',props={'LCSC':'C162697','MPN':'HB9500M-9.5-03P-13-00A','Manufacturer':'Kangnex','Note':'HF symbol is the HB9500; stock HB9500M footprint used'}),
+  Comp('HF_Connectors:HB9500-9.5-3P','AC OUT (L, N, PE)',{'1':'L_OUT','2':'N_IN','3':'PE'},'TerminalBlock_Ningbo-Kagnex:TerminalBlock_Ningbo-Kagnex_HB9500M_1x03_P9.5mm',prefix='J',props={'LCSC':'C162697','MPN':'HB9500M-9.5-03P-13-00A','Manufacturer':'Kangnex'}),
 ])
 def clip(net,tag): return Comp('HF_Passives:01020074Z','01020074Z clip '+tag,{'1':net,'2':net},'HF_Footprints:01020074Z',prefix='XF',props={'MPN':'01020074Z','Manufacturer':'Littelfuse','Digikey':'F4187-ND'})
 m.section('Fuses: 3AG cartridge in PC-pin clips (module branch 3 A, furnace branch 10 A)',[
