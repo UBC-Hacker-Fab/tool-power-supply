@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+
+# KiCad: lock files, backups, autosave, caches, local UI state
+*.lck
+*-backups/
+_autosave-*
+*.kicad_sch-bak
+*.kicad_pcb-bak
+*.kicad_pro-bak
+*.bak
+*.kicad_prl
+fp-info-cache
+*-cache.lib
+*-rescue.lib
+*-rescue.dcm
+*-rescue.kicad_sym
+*.net
+*.tmp
+
+# KiCad: generated outputs (keep fab outputs out of source control; release them via tags/zips)
+fabrication-outputs/
+gerbers/
+production/
+*.gbr
+*.drl
+*.gbrjob
+*.pos
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor / tooling
+.vscode/
+.idea/
+.claude/

@@ -1,0 +1,433 @@
+{
+  "_comment": "Inputs for gen_power_tree.py. Everything the schematic cannot tell us (off-board loads, datasheet currents, efficiencies) lives here, each with a source. 'expect' is a substring that must appear in the schematic value of that ref, so a renumbered or swapped part fails the generator instead of silently producing a stale tree.",
+  "ac": {
+    "voltage_V": 120,
+    "input": {
+      "ref": "J1",
+      "expect": "AC IN"
+    },
+    "module": {
+      "ref": "U1",
+      "expect": "IRM-90-12",
+      "eff": 0.92,
+      "cont_A": 6.7,
+      "peak_A": 7.37,
+      "peak_s": 10,
+      "source": "Mean Well IRM-90 spec: 6.7 A / 80.4 W convection-rated, 7.37 A peak for 10 s, 92% typ (design-decisions.md)"
+    },
+    "module_fuse": {
+      "ref": "F1",
+      "expect": "3A"
+    },
+    "furnace": {
+      "fuse": {
+        "ref": "F2",
+        "expect": "10A"
+      },
+      "sensor": {
+        "ref": "U2",
+        "expect": "ACS712"
+      },
+      "output": {
+        "ref": "J2",
+        "expect": "AC OUT"
+      },
+      "max_W": 1000,
+      "source": "CMU Tube Furnace 4 page: heater should draw no more than 1000 W (design-decisions.md)"
+    }
+  },
+  "rails": [
+    {
+      "id": "12V_BUS",
+      "v": 12.0,
+      "parent": "module",
+      "series": [
+        {
+          "ref": "R5",
+          "expect": "5m",
+          "shunt": true
+        }
+      ],
+      "monitor": {
+        "ref": "U3",
+        "addr": "0x40"
+      },
+      "extra": [
+        {
+          "ref": "D3",
+          "expect": "SMCJ15A",
+          "note": "TVS"
+        },
+        {
+          "ref": "C4",
+          "expect": "100uF",
+          "note": "bulk"
+        }
+      ]
+    },
+    {
+      "id": "5V_RAIL",
+      "v": 5.0,
+      "parent": "12V_BUS",
+      "regulator": {
+        "ref": "U4",
+        "expect": "AP63205",
+        "cap_A": 2.0,
+        "eff": 0.85,
+        "source": "cap_A: design-decisions.md (AP63205, 2 A); eff: ASSUMPTION, not in the repo datasheets"
+      },
+      "series": [
+        {
+          "ref": "R20",
+          "expect": "33m",
+          "shunt": true
+        }
+      ],
+      "monitor": {
+        "ref": "U5",
+        "addr": "0x41"
+      }
+    },
+    {
+      "id": "3V3_RAIL",
+      "v": 3.3,
+      "parent": "12V_BUS",
+      "regulator": {
+        "ref": "U8",
+        "expect": "AP63203",
+        "cap_A": 2.0,
+        "eff": 0.85,
+        "source": "cap_A: design-decisions.md (AP63203, 2 A); eff: ASSUMPTION, not in the repo datasheets"
+      },
+      "series": [
+        {
+          "ref": "R30",
+          "expect": "33m",
+          "shunt": true
+        }
+      ],
+      "monitor": {
+        "ref": "U9",
+        "addr": "0x42"
+      }
+    },
+    {
+      "id": "3V3_MCU",
+      "v": 3.3,
+      "parent": "5V_RAIL",
+      "regulator": {
+        "ref": "U12",
+        "expect": "SC1631",
+        "cap_A": 0.3,
+        "eff": 0.8,
+        "source": "cap_A: Pico 2 3V3(OUT) limit 300 mA (pin-map.md); eff: ASSUMPTION for the Pico's on-board converter"
+      },
+      "series": [
+        {
+          "ref": "D7",
+          "expect": "SS14",
+          "note": "5 V rail to VSYS"
+        }
+      ]
+    }
+  ],
+  "loads": [
+    {
+      "id": "tap_12V_A",
+      "name": "12 V tap A",
+      "kind": "tap",
+      "rail": "12V_BUS",
+      "connector": {
+        "ref": "J3",
+        "expect": "DB128V"
+      },
+      "chain": [
+        {
+          "ref": "F3",
+          "expect": "3A"
+        },
+        {
+          "ref": "Q1",
+          "expect": "AO4407C"
+        }
+      ],
+      "nominal_A": 1.0,
+      "peak_A": 2.0,
+      "limit_A": 3.0,
+      "limit_note": "3 A blade fuse",
+      "source": "design-decisions.md: 1 A nominal / 2 A peak per 12 V tap"
+    },
+    {
+      "id": "tap_12V_B",
+      "name": "12 V tap B",
+      "kind": "tap",
+      "rail": "12V_BUS",
+      "connector": {
+        "ref": "J4",
+        "expect": "DB128V"
+      },
+      "chain": [
+        {
+          "ref": "F4",
+          "expect": "3A"
+        },
+        {
+          "ref": "Q3",
+          "expect": "AO4407C"
+        }
+      ],
+      "nominal_A": 1.0,
+      "peak_A": 2.0,
+      "limit_A": 3.0,
+      "limit_note": "3 A blade fuse",
+      "source": "design-decisions.md: 1 A nominal / 2 A peak per 12 V tap"
+    },
+    {
+      "id": "tap_ESC",
+      "name": "ESC (XT60)",
+      "kind": "tap",
+      "rail": "12V_BUS",
+      "connector": {
+        "ref": "J5",
+        "expect": "XT60"
+      },
+      "chain": [
+        {
+          "ref": "F7",
+          "expect": "7.5A"
+        },
+        {
+          "ref": "Q5",
+          "expect": "AO4407C"
+        }
+      ],
+      "nominal_A": 5.0,
+      "peak_A": 5.0,
+      "limit_A": 7.5,
+      "limit_note": "7.5 A blade fuse",
+      "source": "design-decisions.md: ESC 12 V / 5 A continuous (spin coater, about 60 W)"
+    },
+    {
+      "id": "fan",
+      "name": "Fan header (Noctua NF-A8 PWM)",
+      "kind": "tap",
+      "rail": "12V_BUS",
+      "connector": {
+        "ref": "J6",
+        "expect": "Fan"
+      },
+      "chain": [
+        {
+          "ref": "F6",
+          "expect": "500mA"
+        }
+      ],
+      "nominal_A": 0.06,
+      "peak_A": 0.08,
+      "limit_A": 0.5,
+      "limit_note": "500 mA hold PTC",
+      "source": "design-decisions.md: about 60 mA typ / 80 mA max from search summaries; Noctua datasheet not opened (UNVERIFIED)"
+    },
+    {
+      "id": "tap_5V_A",
+      "name": "5 V tap A",
+      "kind": "tap",
+      "rail": "5V_RAIL",
+      "connector": {
+        "ref": "J7",
+        "expect": "DB128V"
+      },
+      "chain": [
+        {
+          "ref": "U6",
+          "expect": "TPS2553"
+        }
+      ],
+      "nominal_A": 0.5,
+      "peak_A": 0.5,
+      "source": "design-decisions.md: tap rated about 500 mA, used as both nominal and peak demand. The current limit is computed from the schematic's ILIM resistor with the TPS2553 datasheet equations (IOS min = 25230 / R^1.016, IOS max = 22980 / R^0.94, R in kOhm)",
+      "ilim_of": "U6"
+    },
+    {
+      "id": "tap_5V_B",
+      "name": "5 V tap B",
+      "kind": "tap",
+      "rail": "5V_RAIL",
+      "connector": {
+        "ref": "J8",
+        "expect": "DB128V"
+      },
+      "chain": [
+        {
+          "ref": "U7",
+          "expect": "TPS2553"
+        }
+      ],
+      "nominal_A": 0.5,
+      "peak_A": 0.5,
+      "source": "design-decisions.md: tap rated about 500 mA, used as both nominal and peak demand. The current limit is computed from the schematic's ILIM resistor with the TPS2553 datasheet equations (IOS min = 25230 / R^1.016, IOS max = 22980 / R^0.94, R in kOhm)",
+      "ilim_of": "U7"
+    },
+    {
+      "id": "tap_3V3_A",
+      "name": "3.3 V tap A",
+      "kind": "tap",
+      "rail": "3V3_RAIL",
+      "connector": {
+        "ref": "J9",
+        "expect": "DB128V"
+      },
+      "chain": [
+        {
+          "ref": "U10",
+          "expect": "TPS2553"
+        }
+      ],
+      "nominal_A": 0.5,
+      "peak_A": 0.5,
+      "source": "design-decisions.md: tap rated about 500 mA, used as both nominal and peak demand. The current limit is computed from the schematic's ILIM resistor with the TPS2553 datasheet equations (IOS min = 25230 / R^1.016, IOS max = 22980 / R^0.94, R in kOhm)",
+      "ilim_of": "U10"
+    },
+    {
+      "id": "tap_3V3_B",
+      "name": "3.3 V tap B",
+      "kind": "tap",
+      "rail": "3V3_RAIL",
+      "connector": {
+        "ref": "J10",
+        "expect": "DB128V"
+      },
+      "chain": [
+        {
+          "ref": "U11",
+          "expect": "TPS2553"
+        }
+      ],
+      "nominal_A": 0.5,
+      "peak_A": 0.5,
+      "source": "design-decisions.md: tap rated about 500 mA, used as both nominal and peak demand. The current limit is computed from the schematic's ILIM resistor with the TPS2553 datasheet equations (IOS min = 25230 / R^1.016, IOS max = 22980 / R^0.94, R in kOhm)",
+      "ilim_of": "U11"
+    },
+    {
+      "id": "ob_12V_led_sense",
+      "name": "12 V rail LED and 12 V sense dividers",
+      "kind": "onboard",
+      "rail": "12V_BUS",
+      "refs": [
+        "D4",
+        "R6"
+      ],
+      "nominal_A": 0.0029,
+      "peak_A": 0.0029,
+      "source": "computed: (12 V - 2 V) / 4.7 k = 2.1 mA, plus 3 sense dividers 12 V / 43 k = 0.28 mA each"
+    },
+    {
+      "id": "ob_5V",
+      "name": "5 V rail: ACS712, SSR input, LED, tap sense, TPS2553 IQ",
+      "kind": "onboard",
+      "rail": "5V_RAIL",
+      "refs": [
+        "U2",
+        "Q7",
+        "D5",
+        "U6",
+        "U7"
+      ],
+      "nominal_A": 0.025,
+      "peak_A": 0.028,
+      "source": "ACS712 10 mA typ / 13 mA max (datasheet), SSR input 12 mA max when on (Fotek), LED 2 mA, 2 sense dividers 0.34 mA each, 2 x TPS2553 0.12 mA max each"
+    },
+    {
+      "id": "ob_3V3",
+      "name": "3.3 V rail: LED, tap pull-downs, TPS2553 IQ, EN pull-ups",
+      "kind": "onboard",
+      "rail": "3V3_RAIL",
+      "refs": [
+        "D6",
+        "U10",
+        "U11"
+      ],
+      "nominal_A": 0.0028,
+      "peak_A": 0.0051,
+      "source": "LED 1.9 mA, 2 tap pull-downs 0.33 mA each, 2 x TPS2553 0.12 mA max each; peak adds 7 EN pull-ups of 0.33 mA when every tap is switched off"
+    },
+    {
+      "id": "pico",
+      "name": "Pico 2 (VSYS from the 5 V rail)",
+      "kind": "onboard",
+      "rail": "5V_RAIL",
+      "refs": [
+        "U12"
+      ],
+      "nominal_A": 0.0127,
+      "peak_A": 0.1,
+      "source": "nominal: Pico 2 datasheet Table 2 typical 12.7 mA at 5 V with GPIOs unconnected; peak 0.1 A is an ASSUMPTION covering GPIO drive and USB"
+    },
+    {
+      "id": "ob_mcu",
+      "name": "3V3(OUT): 3 x INA226, I2C pull-ups, NTC dividers",
+      "kind": "onboard",
+      "rail": "3V3_MCU",
+      "refs": [
+        "U3",
+        "U5",
+        "U9"
+      ],
+      "nominal_A": 0.0013,
+      "peak_A": 0.0016,
+      "source": "INA226 330 uA typ / 420 uA max each (datasheet), 2 NTC dividers 0.17 mA each at 25 C; I2C pull-ups only draw while pulling low (ignored)"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "idle",
+      "name": "Idle (board powered, nothing connected)",
+      "default": "off",
+      "kind_levels": {
+        "onboard": "nominal"
+      },
+      "overrides": {
+        "fan": "nominal"
+      }
+    },
+    {
+      "id": "spin",
+      "name": "Spin coater (ESC plus all logic taps loaded)",
+      "default": "off",
+      "kind_levels": {
+        "onboard": "nominal"
+      },
+      "overrides": {
+        "tap_ESC": "nominal",
+        "fan": "nominal",
+        "tap_5V_A": "nominal",
+        "tap_5V_B": "nominal",
+        "tap_3V3_A": "nominal",
+        "tap_3V3_B": "nominal"
+      }
+    },
+    {
+      "id": "all_nominal",
+      "name": "Every tap at its nominal load (more than one tool, not supported)",
+      "default": "nominal",
+      "kind_levels": {},
+      "overrides": {}
+    },
+    {
+      "id": "all_peak",
+      "name": "Every tap at its peak demand",
+      "default": "peak",
+      "kind_levels": {},
+      "overrides": {}
+    },
+    {
+      "id": "all_limit",
+      "name": "Every tap pulling its current limit (fault case)",
+      "default": "limit",
+      "kind_levels": {},
+      "overrides": {}
+    }
+  ],
+  "min_headroom": 0.2,
+  "ina226_fs_mV": 81.92
+}

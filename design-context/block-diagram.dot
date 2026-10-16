@@ -1,0 +1,64 @@
+digraph G {
+  rankdir=LR; compound=true; nodesep=0.25; ranksep=0.6; fontname="Helvetica";
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff", fontname="Helvetica", fontsize=10, margin="0.12,0.06"];
+  edge [fontname="Helvetica", fontsize=9, color="#333333"];
+
+  subgraph cluster_mains { label="Mains zone (120 VAC, L / N / PE)"; style="rounded,filled"; fillcolor="#fdecea"; color="#c0392b"; fontsize=11;
+    ACIN [label="AC in\n3P barrier strip"];
+    MOV [label="MOV 14D241K\nL-N"];
+    LED_M [label="Mains LED\n4x 33k + 1N4148W + red LED"];
+    F3 [label="3 A Slo-Blo 3AG\nmodule branch"];
+    F10 [label="10 A fast-blow 3AG\nfurnace branch"];
+    ACS [label="ACS712-20A\nfurnace current"];
+    ACOUT [label="AC out\n3P barrier strip"];
+    IRM [label="Mean Well IRM-90-12\n12 V / 6.7 A"];
+  }
+  SSR [label="Fotek SSR-60 DA\noff-board, own heat sink", fillcolor="#eeeeee"];
+  FURN [label="Tube furnace\n<= ~1000 W", fillcolor="#eeeeee"];
+
+  subgraph cluster_bus { label="12 V bus"; style="rounded,filled"; fillcolor="#fff6dd"; color="#b9770e"; fontsize=11;
+    SH12 [label="Shunt 5 mOhm\nINA226 #1 (0x40)"];
+    TVS [label="TVS SMCJ15A\n+ 100 uF bulk cap"];
+  }
+  subgraph cluster_t12 { label="12 V branches (fuse, then P-FET switch)"; style="rounded,filled"; fillcolor="#fff6dd"; color="#b9770e"; fontsize=11;
+    B1 [label="3 A blade fuse\nAO4407C"]; OUT12A [label="12 V tap A"];
+    B2 [label="3 A blade fuse\nAO4407C"]; OUT12B [label="12 V tap B"];
+    B3 [label="7.5 A blade fuse\nAO4407C"]; XT60 [label="XT60 female\nESC power (EMAX ESC)"];
+    PTC [label="PTC 500 mA"]; FAN [label="Fan header\n4-pin PWM (Noctua NF-A8)"];
+    B1->OUT12A; B2->OUT12B; B3->XT60; PTC->FAN;
+  }
+  subgraph cluster_r5 { label="5 V rail"; style="rounded,filled"; fillcolor="#e6f4ea"; color="#1e8449"; fontsize=11;
+    BK5 [label="AP63205 buck\n+ INA226 #2 (0x41)"]; TP1 [label="TPS2553 x2"]; OUT5 [label="5 V taps A, B"];
+    BK5->TP1->OUT5;
+  }
+  subgraph cluster_r33 { label="3.3 V rail"; style="rounded,filled"; fillcolor="#e6f4ea"; color="#1e8449"; fontsize=11;
+    BK33 [label="AP63203 buck\n+ INA226 #3 (0x42)"]; TP2 [label="TPS2553 x2"]; OUT33 [label="3.3 V taps A, B"];
+    BK33->TP2->OUT33;
+  }
+  subgraph cluster_mcu { label="Raspberry Pi Pico 2"; style="rounded,filled"; fillcolor="#e8f0fb"; color="#2e5fa3"; fontsize=11;
+    PICO [label="RP2350\nI2C, 25 GPIO, 3 ADC"];
+    SSRSEL [label="SSR drive\n2N7002 on 5 V (default)\nor direct GPIO (solder jumpers)"];
+  }
+  SS14 [label="SS14"];
+  NTC1 [label="NTC at the module"]; NTC2 [label="NTC on the SSR heat sink"];
+  STAR [shape=circle, label="Star ground\nsolder jumpers:\nPE, DC GND, ESC,\nlogic, chassis", fillcolor="#eeeeee"];
+
+  ACIN->MOV; ACIN->F3->IRM; ACIN->F10->ACS->ACOUT->SSR->FURN;
+  ACIN->LED_M [style=dashed];
+  IRM->SH12->TVS;
+  TVS->B1; TVS->B2; TVS->B3; TVS->PTC; TVS->BK5; TVS->BK33;
+  BK5->SS14->PICO;
+
+  PICO->SH12 [style=dashed, label="I2C"];
+  PICO->BK5 [style=dashed, label="I2C"];
+  PICO->BK33 [style=dashed, label="I2C"];
+  PICO->TP1 [style=dashed, label="EN x4, FAULT x2"];
+  PICO->TP2 [style=dashed];
+  PICO->B1 [style=dashed, label="EN x3 via 2N7002"];
+  PICO->OUT12A [style=dashed, label="SENSE x7\n(downstream of switches)"];
+  PICO->SSRSEL [style=dashed]; SSRSEL->SSR [style=dashed];
+  PICO->FAN [style=dashed, label="PWM, tach"];
+  ACS->PICO [style=dashed, label="ADC0 via divider"];
+  NTC1->PICO [style=dashed, label="ADC1"]; NTC2->PICO [style=dashed, label="ADC2"];
+  ACIN->STAR [style=dashed, label="PE"]; IRM->STAR [style=dashed];
+}
