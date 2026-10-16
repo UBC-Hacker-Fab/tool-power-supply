@@ -14,9 +14,14 @@ OUT=None; SOLO=None; HL={}
 args=[a for a in sys_argv] if False else sys.argv_saved[1:]
 for a in args:
     if a.startswith('--solo='): SOLO=a.split('=',1)[1]
+    elif a=='--force': pass
     else: OUT=a
 OUT=OUT or os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','tool-power-supply-v1')
 os.makedirs(OUT,exist_ok=True)
+# KiCad drops ~*.lck files next to the project while it has it open, and will overwrite our output on its next save.
+_locks=[f for f in os.listdir(OUT) if f.startswith('~') and f.endswith('.lck')]
+if _locks and '--force' not in sys.argv_saved:
+    sys.exit('KiCad appears to have the project open (%s in %s). Close KiCad without saving, then rerun; pass --force to write anyway.'%(', '.join(_locks),os.path.abspath(OUT)))
 LAYOUT={'mains':layout_mains.mains,'bus12v':layout_bus12v.bus12v,'rails':layout_rails.rails,'mcu':layout_mcu.mcu}
 for n in ORDER:
     if n not in LAYOUT: continue

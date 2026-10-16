@@ -10,7 +10,7 @@ v2 changes (2026-10-14): added 12 V branch switches, tap sense circuits and EN p
 | 1 | Mean Well IRM-90-12 | LCSC C6577385 | E | Hand | 12 V / 6.7 A |
 | 2 | Barrier strip 3P 9.5 mm (Kangnex HB9500M-9.5-03P-13-00A) | LCSC C162697 | E | Hand | AC in, AC out |
 | 1 | MOV 14D241K | LCSC C49072887 | E | Hand | L-N after the fuse |
-| 4 | Fuse clip, Littelfuse 01020074Z | Digikey F4187-ND | - | Hand | 2 per 3AG fuse |
+| 4 | Fuse clip, Littelfuse 01020074Z | Digikey F4187-ND | - | Hand | 2 per 3AG fuse. Not a schematic symbol: the clips are the pads of the F1 and F2 footprint (`Fuse_3AG_6.3x32mm_Clips_Littelfuse_102_122_P34.21mm`) |
 | 1 | 3 A Slo-Blo 3AG, 0313003.HXP | Digikey F2545-ND | - | Hand | Module branch. Keep spares; 4 A 0313004.HXP (F2546-ND) is the swap-in if it trips |
 | 1 | 10 A ceramic fast-blow 3AG, 0314010.HXP | Digikey F3222-ND | - | Hand | Furnace branch |
 | 0-1 | X2 100 nF 275 VAC | LCSC C2901341 | E | Hand | Optional, IRM has its own filter |
@@ -20,7 +20,7 @@ v2 changes (2026-10-14): added 12 V branch switches, tap sense circuits and EN p
 |---|---|---|---|---|---|
 | 1 | TVS SMCJ15A | LCSC C42371550 | P | JLC | |
 | 1 | Bulk cap 100 uF 35 V (KNSCHA RVE100UF35V67RV0072) | LCSC C2836437 | E | JLC | |
-| 3 | Blade fuse holder Keystone 3557-2 | Mouser 534-3557-2 / Digikey 36-3557-2-ND | - | Hand | Tie pads per the footprint in use: 1+2 and 3+4 for the added 3557-20 footprint (HF library), 1+3 and 2+4 for the 3557-2 footprint. Same body, same pad geometry |
+| 3 | Blade fuse holder Keystone 3557-2 | Mouser 534-3557-2 / Digikey 36-3557-2-ND | - | Hand | Not a schematic symbol: it is the footprint of F3, F4 and F7 (`Fuse_Blade_Keystone_3557-20_P13.47mm`, pads renumbered 1,1 / 2,2). Old note on the vendor footprint, tie pads: 1+2 and 3+4 for the added 3557-20 footprint (HF library), 1+3 and 2+4 for the 3557-2 footprint. Same body, same pad geometry |
 | 2 | ATO blade fuse 3 A (0ATO003.V) | Digikey F5040-ND | - | Hand | 12 V taps |
 | 1 | ATO blade fuse 7.5 A (0ATO07.5V) | Digikey F11167-ND | - | Hand | ESC |
 | 1 | XT60PW-F | LCSC C428722 | E | Hand | ESC power |

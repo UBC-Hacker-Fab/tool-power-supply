@@ -2,7 +2,7 @@
 
 A general-purpose power supply board for HackerFab tools. Rev 1 targets the **spin coater** (A2212 930KV BLDC through an EMAX ESC) and the **tube furnace** (up to about 1000 W, switched by an off-board Fotek SSR-60 DA), and also gives general 12 V / 5 V / 3.3 V taps for future tools. A Raspberry Pi Pico 2 monitors and controls it.
 
-Status: **rev 1 schematic draft, no PCB layout yet.** Nothing has been fabricated. Several numbers (creepage, thermal, ESC behavior) are from memory or summaries and are flagged as unverified in the design docs; check them before ordering boards.
+Status: **rev 1 schematic done, PCB at initial placement (200 x 120 mm outline, no routing).** Nothing has been fabricated. Several numbers (creepage, thermal, ESC behavior) are from memory or summaries and are flagged as unverified in the design docs; check them before ordering boards.
 
 Spec source: the Notion page "Power Board Spec Sheet" (HackerFab Central / Electrical): https://app.notion.com/p/38d37907206980e6a0a9c241ee033941. Fab and assembly are planned through JLC (LCSC part numbers in the BOM); through-hole parts are hand-soldered and can come from Digikey or Mouser.
 
@@ -26,9 +26,12 @@ Out of scope for rev 1: the litho tool (it keeps its own supplies), the ESC thro
 | `design-context/design-decisions.md` | Working memory: every decision with its rationale, open questions, datasheet-derived numbers and sourcing. Start here for "why is it like this". |
 | `design-context/bom.md` | Rev 1 BOM (LCSC / Digikey / Mouser part numbers, quantities, JLC vs hand assembly). |
 | `design-context/pin-map.md` | Pico 2 GPIO assignment, tap sense circuits, 12 V switch circuit, INA226 addresses. |
+| `design-context/power-tree.md` | Generated power tree with consumption per rail and per tap, module budget by scenario. Regenerate with `python3 tools/power_tree/gen_power_tree.py`. |
 | `design-context/block-diagram.svg` | Block diagram (Graphviz source `block-diagram.dot`; Mermaid version in `block-diagram.md`). |
+| `design-context/pcb-placement.md` | Board outline, zone plan and placement assumptions for the first-pass PCB. |
 | `design-context/footprint-sourcing.md` | Which symbols and footprints come from stock KiCad, the HackerFab library, or need downloading. |
 | `tool-power-supply-v1/` | The KiCad 10 project: root sheet plus `mains`, `bus12v`, `rails`, `mcu` sub-sheets. |
+| `tools/power_tree/` | Generator for `power-tree.md`: reads the schematic through the kicad-happy `kicad` skill and `power_model.json` (off-board loads and assumptions, each with a source). |
 | `tools/schematic/` | Python generator that wrote the schematic (see "Working on the schematic"). |
 | `datasheets/` | Datasheets referenced by the decisions (INA226, TPS2553, ACS712, Pico 2, EMAX ESC, and rejected parts). |
 
@@ -36,15 +39,15 @@ Out of scope for rev 1: the litho tool (it keeps its own supplies), the ESC thro
 
 1. Read the block diagram above, then the "Decided" sections of `design-context/design-decisions.md`.
 2. Open `tool-power-supply-v1/tool-power-supply-v1.kicad_pro` in **KiCad 10**. The schematic is hierarchical: the root sheet shows four sheet symbols joined by sheet pins and bus groups (`I2C`, `EN`, `SENSE`, `FAULT`, `FAN`), and the sheets are wired functional blocks with power symbols and no global labels.
-3. Symbols and footprints come from the stock KiCad libraries plus the HackerFab libraries (`hackerfab-kicadlibs`, https://github.com/UBC-Hacker-Fab). A few parts (TPS2553, Keystone 3557, Littelfuse clip, barrier strip, IRM-90-12) are only in the HackerFab library, so clone that repo and add its libraries to KiCad before opening the project.
+3. Symbols and footprints come from the stock KiCad libraries plus the HackerFab libraries (`hackerfab-kicadlibs`, https://github.com/UBC-Hacker-Fab). A few parts (TPS2553, the 3AG and blade fuses with their clip/holder footprints, barrier strip, IRM-90-12) are only in the HackerFab library, so clone that repo and add its libraries to KiCad before opening the project.
 4. Check the BOM (`design-context/bom.md`) against the schematic and pin map.
 
 Current check results: ERC has 0 errors and 2 expected warnings (the Pico's GND and AGND power-output pins tied to the module's -VO pin). The exported netlist matches the intended pin-to-net table for all 79 nets.
 
 ## Known gaps and open items
 
-- **No PCB layout yet.** Layout needs a mains zone along one board edge, routed creepage slots (under the IRM-90-12, around the ACS712 and the mains LED dropper), wide pours for the roughly 8.3 A furnace path, and the star-ground solder jumpers (PE, DC GND, ESC, logic, chassis; default open).
-- **Schematic omissions:** X2 cap, test points, a gate clamp for the 12 V P-FETs (check Vgs against the 25 V limit during a TVS clamp), and the AO4407C uses the stock FDS9435A symbol. Fuses are not drawn as parts between the clip and holder components.
+- **PCB: initial placement only** (see `design-context/pcb-placement.md`; no tracks, zones or slots). Layout still needs a mains zone along one board edge, routed creepage slots (under the IRM-90-12, around the ACS712 and the mains LED dropper), wide pours for the roughly 8.3 A furnace path, and the star-ground solder jumpers (PE, DC GND, ESC, logic, chassis; default open).
+- **Schematic omissions:** X2 cap, test points, a gate clamp for the 12 V P-FETs (check Vgs against the 25 V limit during a TVS clamp), and the AO4407C uses the stock FDS9435A symbol. The 120 VAC 3AG fuses (F1, F2) are one symbol each with a custom two-clip footprint (34.21 mm between the clips, from the Littelfuse datasheet); the DC blade fuses (F3, F4, F7) are one symbol each with the Keystone 3557 holder as the footprint, so there are no separate clip or holder symbols.
 - **Unverified assumptions:** the ESC's regen behavior (the IRM-90-12 latches off above 12.6 to 16.2 V and needs a power cycle; the design relies on ESC Brake OFF and a ramped throttle), the ESC's own input capacitance (the 100 uF bulk cap assumes the ESC has some), the Fotek SSR's real ratings, creepage numbers, and the Noctua fan's PWM and tach levels. The EMAX manual in `datasheets/` is for the NANO series, not the Simon series in use.
 - **Not yet sourced:** M3 hardware and standoffs, the SSR heat sink and wiring, and the DNP dump-load footprint.
 - Prices and stock figures date from 2026-10-11 to 2026-10-14. Re-check before ordering.
@@ -57,7 +60,11 @@ The schematic was generated from Python tables, and `tools/schematic/design.py` 
 python3 tools/schematic/build2.py   # regenerate tool-power-supply-v1/*.kicad_sch
 ```
 
-It needs KiCad 10 installed at `/Applications/KiCad/KiCad.app` and `hackerfab-kicadlibs` cloned at `~/Documents/Github/hackerfab-kicadlibs`. **Regenerating overwrites any edits made in KiCad**, so once you start editing the schematic by hand, stop using the generator. `tools/schematic/README.md` has details.
+It needs KiCad 10 installed at `/Applications/KiCad/KiCad.app` and `hackerfab-kicadlibs` cloned at `~/Documents/Github/hackerfab-kicadlibs`. **Regenerating overwrites any edits made in KiCad.** The schematic is now being edited by hand, so do not rerun the generator unless you have agreed to throw those edits away (it refuses to run while KiCad's `~*.lck` file exists); `design.py` can drift from the `.kicad_sch` files. `tools/schematic/README.md` has details.
+
+## Power tree
+
+`design-context/power-tree.md` is generated from the schematic, so rerun `python3 tools/power_tree/gen_power_tree.py` after any schematic or load change (`--check` reports whether the committed file is stale). It needs Python 3.10+ and the kicad-happy `kicad` skill (default `~/.claude/skills/kicad`, override with `KICAD_HAPPY_SKILL`). Tap and overhead currents live in `tools/power_tree/power_model.json`; the generator fails if a ref in that file no longer matches the schematic. Headline result today: the spin-coater case draws about 5.9 A of the module's 6.7 A, and loading every tap at once exceeds the module, as expected for a one-tool-at-a-time design.
 
 ## Keeping this README current
 

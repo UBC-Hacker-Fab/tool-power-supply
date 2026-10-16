@@ -46,12 +46,13 @@ m.section('AC input and AC output (barrier strips)',[
   Comp('HF_Connectors:HB9500-9.5-3P','AC IN (L, N, PE)',{'1':'L_IN','2':'N_IN','3':'PE'},'TerminalBlock_Ningbo-Kagnex:TerminalBlock_Ningbo-Kagnex_HB9500M_1x03_P9.5mm',prefix='J',props={'LCSC':'C162697','MPN':'HB9500M-9.5-03P-13-00A','Manufacturer':'Kangnex','Note':'HF symbol is the HB9500; stock HB9500M footprint used'}),
   Comp('HF_Connectors:HB9500-9.5-3P','AC OUT (L, N, PE)',{'1':'L_OUT','2':'N_IN','3':'PE'},'TerminalBlock_Ningbo-Kagnex:TerminalBlock_Ningbo-Kagnex_HB9500M_1x03_P9.5mm',prefix='J',props={'LCSC':'C162697','MPN':'HB9500M-9.5-03P-13-00A','Manufacturer':'Kangnex'}),
 ])
-def clip(net,tag): return Comp('HF_Passives:01020074Z','01020074Z clip '+tag,{'1':net,'2':net},'HF_Footprints:01020074Z',prefix='XF',props={'MPN':'01020074Z','Manufacturer':'Littelfuse','Digikey':'F4187-ND'})
+FUSE_3AG='HF_Passives:Fuse_3AG_6.3x32mm'   # every 6.3 x 32 mm cartridge fuse carries this symbol + the two-clip footprint
+def fuse_3ag(a,b,val,pn):
+    return Comp(FUSE_3AG,val,{'1':a,'2':b},'HF_Footprints:Fuse_3AG_6.3x32mm_Clips_Littelfuse_102_122_P34.21mm',prefix='F',
+                props={'MPN':pn,'Clip MPN':'01020074Z x2 (Digikey F4187-ND)','Note':'Fuse is a consumable pulled from the clips; the footprint is the two clip positions'})
 m.section('Fuses: 3AG cartridge in PC-pin clips (module branch 3 A, furnace branch 10 A)',[
-  virtual_fuse('L_IN','L_MOD','3A Slo-Blo 3AG','0313003.HXP (Digikey F2545-ND; 4A 0313004.HXP swap-in)'),
-  clip('L_IN','F1 in'),clip('L_MOD','F1 out'),
-  virtual_fuse('L_IN','L_FURN','10A ceramic fast-blow 3AG 250VAC','0314010.HXP (Digikey F3222-ND)'),
-  clip('L_IN','F2 in'),clip('L_FURN','F2 out'),
+  fuse_3ag('L_IN','L_MOD','3A Slo-Blo 3AG','0313003.HXP (Digikey F2545-ND; 4A 0313004.HXP swap-in)'),
+  fuse_3ag('L_IN','L_FURN','10A ceramic fast-blow 3AG 250VAC','0314010.HXP (Digikey F3222-ND)'),
 ])
 m.section('Surge protection and mains-present indicator',[
   Comp('Device:Varistor','14D241K MOV',{'1':'L_MOD','2':'N_IN'},'Varistor:RV_Disc_D16.5mm_W6.7mm_P7.5mm',prefix='RV',props={'LCSC':'C49072887','MPN':'14D241K','Note':'Verify disc size against datasheet'}),
