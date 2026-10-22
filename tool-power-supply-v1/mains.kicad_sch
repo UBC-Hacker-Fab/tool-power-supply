@@ -2434,9 +2434,9 @@
 		)
 		(uuid "728d26dc-5893-4c40-82f3-ed130509bb56")
 	)
-	(text "CHASSIS"
+	(text "CHASSIS?"
 		(exclude_from_sim no)
-		(at 86.614 215.392 0)
+		(at 115.824 214.376 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2456,18 +2456,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "02bfb3ce-9075-42bd-8d71-07e8ed48b1f0")
-	)
-	(junction
-		(at 144.78 185.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "08e3d81f-a054-4ffe-889f-9632509817dc")
-	)
-	(junction
-		(at 88.9 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0e21b418-69c2-4a9f-9722-a25c2bd7e224")
 	)
 	(junction
 		(at 254 43.18)
@@ -2494,18 +2482,6 @@
 		(uuid "37777f52-004c-4913-88f1-5eab6a50d2fc")
 	)
 	(junction
-		(at 134.62 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "468f9f50-8b84-49c9-ba4a-5bfbe2f17ebd")
-	)
-	(junction
-		(at 101.6 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5e009668-302b-4337-a719-fca036b4edb1")
-	)
-	(junction
 		(at 162.56 185.42)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2524,16 +2500,30 @@
 		(uuid "82b0d1d9-1d22-4b88-bc86-df5ba094394c")
 	)
 	(junction
-		(at 76.2 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a770ec2d-1e3f-43c8-9b29-5575b8e80feb")
-	)
-	(junction
 		(at 76.2 156.21)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f1bb5173-dbbf-4f19-857b-d9ad28f2519b")
+	)
+	(no_connect
+		(at 76.2 210.82)
+		(uuid "2ace5cd5-5901-4292-98d1-c38bde2c0ca0")
+	)
+	(no_connect
+		(at 101.6 210.82)
+		(uuid "509c1808-e006-443a-9f71-2335dd6cc855")
+	)
+	(no_connect
+		(at 144.78 210.82)
+		(uuid "87628a8c-4ee4-4849-a7c9-50f301c01eae")
+	)
+	(no_connect
+		(at 88.9 210.82)
+		(uuid "b4d76b33-0ae6-45c3-9bf9-ee3e4b402d59")
+	)
+	(no_connect
+		(at 63.5 210.82)
+		(uuid "dce9c505-fd32-42b8-8daa-808e8ed95f89")
 	)
 	(wire
 		(pts
@@ -2857,16 +2847,6 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 210.82) (xy 144.78 185.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8518a875-a47c-40c2-b9db-23891d5cc334")
-	)
-	(wire
-		(pts
 			(xy 134.62 210.82) (xy 134.62 223.52)
 		)
 		(stroke
@@ -2964,16 +2944,6 @@
 			(type default)
 		)
 		(uuid "c63daeb3-cdcf-459a-bcb7-d7888b492985")
-	)
-	(wire
-		(pts
-			(xy 63.5 210.82) (xy 134.62 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c65c5978-d43e-471a-9577-0f984dc354fe")
 	)
 	(wire
 		(pts
@@ -6193,7 +6163,7 @@
 				)
 			)
 		)
-		(property "Value" "M3 hole"
+		(property "Value" "M2 hole"
 			(at 68.072 208.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6203,7 +6173,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
 			(at 63.5 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -6455,7 +6425,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "51d4e00b-c53d-4439-9057-7d705d315c10")
@@ -7467,7 +7437,7 @@
 				)
 			)
 		)
-		(property "Value" "M3 hole"
+		(property "Value" "M2 hole"
 			(at 81.026 208.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7477,7 +7447,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
 			(at 76.2 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -7606,7 +7576,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "9af39939-2a8b-4092-a019-fb403762b8cd")
@@ -7700,7 +7670,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "14D241K"
+		(property "Value" "10D241K"
 			(at 164.49 141.3 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7711,7 +7681,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Varistor:RV_Disc_D16.5mm_W6.7mm_P7.5mm"
+		(property "Footprint" "Varistor:RV_Disc_D12mm_W5.4mm_P7.5mm"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7744,7 +7714,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C49072887"
+		(property "LCSC" "C49072899"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7755,7 +7725,7 @@
 				)
 			)
 		)
-		(property "MPN" "14D241K"
+		(property "MPN" "10D241K"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7766,7 +7736,7 @@
 				)
 			)
 		)
-		(property "Note" "Verify disc size against datasheet"
+		(property "Note" "Verify disc size and thickness against the C49072899 datasheet; footprint is the 12 mm disc, 5.4 mm thick"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7951,7 +7921,7 @@
 				)
 			)
 		)
-		(property "Value" "M3 hole"
+		(property "Value" "M2 hole"
 			(at 93.726 208.534 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7961,7 +7931,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
 			(at 88.9 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -8615,7 +8585,7 @@
 				)
 			)
 		)
-		(property "Value" "M3 hole"
+		(property "Value" "M2 hole"
 			(at 106.68 208.594 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8625,7 +8595,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
 			(at 101.6 203.2 0)
 			(hide yes)
 			(show_name no)

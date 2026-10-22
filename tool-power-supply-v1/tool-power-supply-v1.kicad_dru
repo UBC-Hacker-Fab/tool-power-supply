@@ -1,0 +1,26 @@
+(version 1)
+
+# IEC 60664-1:2007, 120 VAC (125/160 V rows), OVC II, PD2, FR-4 group IIIa.
+# See design-context/design-decisions.md, 'Clearance and standards approach'.
+# Later rules take precedence over earlier ones.
+
+# Reinforced insulation, mains to anything user-reachable: 3.2 mm clearance and creepage.
+(rule "mains_to_reachable_3.2mm"
+	(condition "A.NetClass == 'Mains' && B.NetClass != 'Mains' && B.NetClass != 'PE'")
+	(constraint clearance (min 3.2mm)))
+
+# Basic/functional insulation, line to neutral and mains to PE: 1.6 mm.
+# Intermediate nodes of the LED dropper chain (30 V steps) are left at the default clearance.
+(rule "mains_L_to_N_1.6mm"
+	(condition "A.NetName == 'Net-(D1-K)' && (B.NetName == 'Net-(F1-Pad1)' || B.NetName == 'Net-(F1-Pad2)' || B.NetName == 'Net-(J2-Pad1)' || B.NetName == 'Net-(U1-AC*L)')")
+	(constraint clearance (min 1.6mm)))
+(rule "mains_to_PE_1.6mm"
+	(condition "A.NetClass == 'Mains' && B.NetClass == 'PE'")
+	(constraint clearance (min 1.6mm)))
+
+# ACS712 (U2): pins 1-4 to 5-8 are inside the package; the part itself gives 4 mm creepage (datasheet, basic isolation).
+# Pad-to-pad in air across the package is 3.0 mm, above the 1.5 mm reinforced air clearance of Table F.2; neighbouring pins are
+# 0.67 mm apart by the package pitch (the sensed L-in and L-out pins are the same 120 V conductor).
+(rule "acs712_internal"
+	(condition "A.insideCourtyard('U2') && B.insideCourtyard('U2')")
+	(constraint clearance (min 0.2mm)))

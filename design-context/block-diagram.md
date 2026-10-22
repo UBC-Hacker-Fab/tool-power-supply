@@ -8,9 +8,9 @@ Mermaid source (renders on GitHub and in most Markdown viewers). Built from `des
 flowchart LR
   subgraph MAINS["Mains zone (120 VAC, L / N / PE)"]
     ACIN["AC in\n3P barrier strip"]
-    MOV["MOV 14D241K\nL-N"]
+    MOV["MOV 10D241K\nL-N"]
     LED_M["Mains LED\n4x 33k + 1N4148W + red LED"]
-    F3["3 A Slo-Blo 3AG\nmodule branch"]
+    F2["3 A Slo-Blo 3AG\nmodule branch"]
     F10["10 A fast-blow 3AG\nfurnace branch"]
     ACS["ACS712-20A\nfurnace current"]
     ACOUT["AC out\n3P barrier strip"]
@@ -22,7 +22,7 @@ flowchart LR
 
   ACIN --> MOV
   ACIN -.-> LED_M
-  ACIN --> F3 --> IRM
+  ACIN --> F2 --> IRM
   ACIN --> F10 --> ACS --> ACOUT --> SSR --> FURN
 
   subgraph BUS["12 V bus"]

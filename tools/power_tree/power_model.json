@@ -16,12 +16,12 @@
       "source": "Mean Well IRM-90 spec: 6.7 A / 80.4 W convection-rated, 7.37 A peak for 10 s, 92% typ (design-decisions.md)"
     },
     "module_fuse": {
-      "ref": "F1",
+      "ref": "F2",
       "expect": "3A"
     },
     "furnace": {
       "fuse": {
-        "ref": "F2",
+        "ref": "F1",
         "expect": "10A"
       },
       "sensor": {
@@ -59,7 +59,7 @@
           "note": "TVS"
         },
         {
-          "ref": "C4",
+          "ref": "C3",
           "expect": "100uF",
           "note": "bulk"
         }
@@ -78,13 +78,13 @@
       },
       "series": [
         {
-          "ref": "R20",
+          "ref": "R22",
           "expect": "33m",
           "shunt": true
         }
       ],
       "monitor": {
-        "ref": "U5",
+        "ref": "U6",
         "addr": "0x41"
       }
     },
@@ -93,7 +93,7 @@
       "v": 3.3,
       "parent": "12V_BUS",
       "regulator": {
-        "ref": "U8",
+        "ref": "U5",
         "expect": "AP63203",
         "cap_A": 2.0,
         "eff": 0.85,
@@ -101,13 +101,13 @@
       },
       "series": [
         {
-          "ref": "R30",
+          "ref": "R23",
           "expect": "33m",
           "shunt": true
         }
       ],
       "monitor": {
-        "ref": "U9",
+        "ref": "U7",
         "addr": "0x42"
       }
     },
@@ -138,12 +138,12 @@
       "kind": "tap",
       "rail": "12V_BUS",
       "connector": {
-        "ref": "J3",
+        "ref": "J4",
         "expect": "DB128V"
       },
       "chain": [
         {
-          "ref": "F3",
+          "ref": "F4",
           "expect": "3A"
         },
         {
@@ -163,16 +163,16 @@
       "kind": "tap",
       "rail": "12V_BUS",
       "connector": {
-        "ref": "J4",
+        "ref": "J5",
         "expect": "DB128V"
       },
       "chain": [
         {
-          "ref": "F4",
+          "ref": "F5",
           "expect": "3A"
         },
         {
-          "ref": "Q3",
+          "ref": "Q2",
           "expect": "AO4407C"
         }
       ],
@@ -188,16 +188,16 @@
       "kind": "tap",
       "rail": "12V_BUS",
       "connector": {
-        "ref": "J5",
+        "ref": "J6",
         "expect": "XT60"
       },
       "chain": [
         {
-          "ref": "F7",
+          "ref": "F6",
           "expect": "7.5A"
         },
         {
-          "ref": "Q5",
+          "ref": "Q3",
           "expect": "AO4407C"
         }
       ],
@@ -213,12 +213,12 @@
       "kind": "tap",
       "rail": "12V_BUS",
       "connector": {
-        "ref": "J6",
+        "ref": "J3",
         "expect": "Fan"
       },
       "chain": [
         {
-          "ref": "F6",
+          "ref": "F3",
           "expect": "500mA"
         }
       ],
@@ -234,19 +234,19 @@
       "kind": "tap",
       "rail": "5V_RAIL",
       "connector": {
-        "ref": "J7",
+        "ref": "J9",
         "expect": "DB128V"
       },
       "chain": [
         {
-          "ref": "U6",
+          "ref": "U8",
           "expect": "TPS2553"
         }
       ],
       "nominal_A": 0.5,
       "peak_A": 0.5,
       "source": "design-decisions.md: tap rated about 500 mA, used as both nominal and peak demand. The current limit is computed from the schematic's ILIM resistor with the TPS2553 datasheet equations (IOS min = 25230 / R^1.016, IOS max = 22980 / R^0.94, R in kOhm)",
-      "ilim_of": "U6"
+      "ilim_of": "U8"
     },
     {
       "id": "tap_5V_B",
@@ -254,19 +254,19 @@
       "kind": "tap",
       "rail": "5V_RAIL",
       "connector": {
-        "ref": "J8",
+        "ref": "J10",
         "expect": "DB128V"
       },
       "chain": [
         {
-          "ref": "U7",
+          "ref": "U9",
           "expect": "TPS2553"
         }
       ],
       "nominal_A": 0.5,
       "peak_A": 0.5,
       "source": "design-decisions.md: tap rated about 500 mA, used as both nominal and peak demand. The current limit is computed from the schematic's ILIM resistor with the TPS2553 datasheet equations (IOS min = 25230 / R^1.016, IOS max = 22980 / R^0.94, R in kOhm)",
-      "ilim_of": "U7"
+      "ilim_of": "U9"
     },
     {
       "id": "tap_3V3_A",
@@ -274,7 +274,7 @@
       "kind": "tap",
       "rail": "3V3_RAIL",
       "connector": {
-        "ref": "J9",
+        "ref": "J7",
         "expect": "DB128V"
       },
       "chain": [
@@ -294,7 +294,7 @@
       "kind": "tap",
       "rail": "3V3_RAIL",
       "connector": {
-        "ref": "J10",
+        "ref": "J8",
         "expect": "DB128V"
       },
       "chain": [
@@ -315,7 +315,7 @@
       "rail": "12V_BUS",
       "refs": [
         "D4",
-        "R6"
+        "R7"
       ],
       "nominal_A": 0.0029,
       "peak_A": 0.0029,
@@ -330,8 +330,8 @@
         "U2",
         "Q7",
         "D5",
-        "U6",
-        "U7"
+        "U8",
+        "U9"
       ],
       "nominal_A": 0.025,
       "peak_A": 0.028,
@@ -370,8 +370,8 @@
       "rail": "3V3_MCU",
       "refs": [
         "U3",
-        "U5",
-        "U9"
+        "U6",
+        "U7"
       ],
       "nominal_A": 0.0013,
       "peak_A": 0.0016,
