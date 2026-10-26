@@ -4278,16 +4278,6 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 185.42) (xy 123.19 180.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a70098db-d80e-4310-8fc1-aecf98d7a080")
-	)
-	(wire
-		(pts
 			(xy 110.49 217.17) (xy 110.49 222.25)
 		)
 		(stroke
@@ -4508,16 +4498,6 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 43.18) (xy 261.62 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c120e493-8707-4007-b258-0d03e5e7836a")
-	)
-	(wire
-		(pts
 			(xy 233.68 175.26) (xy 236.22 175.26)
 		)
 		(stroke
@@ -4568,16 +4548,6 @@
 	)
 	(wire
 		(pts
-			(xy 261.62 43.18) (xy 261.62 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8ebbd31-f5c8-4e45-b893-c0fb7db06f02")
-	)
-	(wire
-		(pts
 			(xy 128.27 220.98) (xy 130.81 220.98)
 		)
 		(stroke
@@ -4595,16 +4565,6 @@
 			(type default)
 		)
 		(uuid "ca3bb29f-5703-4df6-899b-629126b41697")
-	)
-	(wire
-		(pts
-			(xy 107.95 185.42) (xy 107.95 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cacc5694-d496-43e5-ad48-3885f37281ee")
 	)
 	(wire
 		(pts
@@ -5376,6 +5336,17 @@
 			(justify right)
 		)
 		(uuid "2c0617b0-dc1d-43d0-8b07-173d609df285")
+	)
+	(hierarchical_label "5V_LINK"
+		(shape output)
+		(at 264.16 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "375cf5de-f861-4c3d-9d52-a48422509d73")
 	)
 	(hierarchical_label "I2C{SDA SCL ALERT}"
 		(shape bidirectional)
@@ -6441,83 +6412,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 123.19 180.34 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "14f10c24-dfc7-4f30-8fbf-55e2998ba843")
-		(property "Reference" "#FLG02"
-			(at 123.19 175.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 123.19 176.022 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 123.19 180.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 123.19 180.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 123.19 180.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "e3f2926d-9f91-482c-b3a6-8738562261b4")
-		)
-		(instances
-			(project "tool-power-supply-v1"
-				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
-					(reference "#FLG02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 184.15 180.34 0)
 		(unit 1)
@@ -6539,7 +6433,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3_BUCK"
+		(property "Value" "3V3_RAIL"
 			(at 179.578 175.514 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7600,83 +7494,6 @@
 			(project "tool-power-supply-v1"
 				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
 					(reference "#PWRRA035")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 107.95 181.61 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "2e7297bd-0bb4-4e61-90cc-8c2a8f3923db")
-		(property "Reference" "#PWRRA010"
-			(at 107.95 184.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "3V3_BUCK"
-			(at 103.378 176.022 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 107.95 181.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 107.95 181.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 107.95 181.61 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4d6c0141-1cef-4bfa-9f12-930c5acd2ebe")
-		)
-		(instances
-			(project "tool-power-supply-v1"
-				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
-					(reference "#PWRRA010")
 					(unit 1)
 				)
 			)
@@ -9332,7 +9149,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "63baf643-1ba6-43a1-8358-f54204a5dd88")
-		(property "Reference" "J10"
+		(property "Reference" "J9"
 			(at 268.224 85.598 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9427,7 +9244,7 @@
 		(instances
 			(project "tool-power-supply-v1"
 				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
-					(reference "J10")
+					(reference "J9")
 					(unit 1)
 				)
 			)
@@ -11268,118 +11085,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 269.24 40.64 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "96f78769-ddac-4f80-9605-f26d56242f1e")
-		(property "Reference" "J9"
-			(at 269.24 34.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "DB128V-5.08-2P-GN-S"
-			(at 258.826 36.89 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-02_1x02_P5.08mm_Horizontal"
-			(at 269.24 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 269.24 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 269.24 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C2915639"
-			(at 269.24 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "MPN" "DB128V-5.08-2P-GN-S"
-			(at 269.24 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DORABO"
-			(at 269.24 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5eeb0a2f-cf2a-428b-b700-d051419ce572")
-		)
-		(pin "2"
-			(uuid "cd761e2c-36a3-4007-9b19-f66d4361dfbe")
-		)
-		(instances
-			(project "tool-power-supply-v1"
-				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
-					(reference "J9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Small")
 		(at 80.01 187.96 90)
 		(unit 1)
@@ -12815,83 +12520,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 261.62 45.72 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b54f8faf-3fca-47ed-b384-6eac27c72b9b")
-		(property "Reference" "#PWRRA049"
-			(at 261.62 48.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 260.35 49.784 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 261.62 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 261.62 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 261.62 45.72 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5fa00cd0-1ac8-40ec-a1d0-e3851b9c67a4")
-		)
-		(instances
-			(project "tool-power-supply-v1"
-				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
-					(reference "#PWRRA049")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Small")
 		(at 43.18 64.77 0)
 		(unit 1)
@@ -13038,7 +12666,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3_BUCK"
+		(property "Value" "3V3_RAIL"
 			(at 179.578 226.314 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13664,7 +13292,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "d8ed5441-66f0-4a46-82fc-e930f1528341")
-		(property "Reference" "#PWRRA050"
+		(property "Reference" "#PWRRA049"
 			(at 261.62 99.52 0)
 			(hide yes)
 			(show_name no)
@@ -13724,7 +13352,7 @@
 		(instances
 			(project "tool-power-supply-v1"
 				(path "/38374745-796d-4ac0-8538-65a2602e3d35/a504aa9b-e0ea-4a51-8a7c-d7a2d6805fdc"
-					(reference "#PWRRA050")
+					(reference "#PWRRA049")
 					(unit 1)
 				)
 			)
@@ -13983,7 +13611,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3_BUCK"
+		(property "Value" "3V3_RAIL"
 			(at 181.102 87.884 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15568,7 +15196,7 @@
 				)
 			)
 		)
-		(property "Value" "3V3_BUCK"
+		(property "Value" "3V3_RAIL"
 			(at 181.102 37.084 0)
 			(show_name no)
 			(do_not_autoplace no)

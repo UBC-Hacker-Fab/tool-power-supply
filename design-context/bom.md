@@ -23,7 +23,7 @@ v2 changes (2026-10-14): added 12 V branch switches, tap sense circuits and EN p
 | 3 | Blade fuse holder Keystone 3557-2 | Mouser 534-3557-2 / Digikey 36-3557-2-ND | - | Hand | Not a schematic symbol: it is the footprint of F4, F5 and F6 (`Fuse_Blade_Keystone_3557-20_P13.47mm`, pads renumbered 1,1 / 2,2). Old note on the vendor footprint, tie pads: 1+2 and 3+4 for the added 3557-20 footprint (HF library), 1+3 and 2+4 for the 3557-2 footprint. Same body, same pad geometry |
 | 2 | ATO blade fuse 3 A (0ATO003.V) | Digikey F5040-ND | - | Hand | 12 V taps |
 | 1 | ATO blade fuse 7.5 A (0ATO07.5V) | Digikey F11167-ND | - | Hand | ESC |
-| 1 | XT60PW-F | LCSC C428722 | E | Hand | ESC power |
+| 1 | XT60PB-F (vertical female) | LCSC C19268038 | E | Hand | ESC power (J6; was the horizontal XT60PW-F C428722 until 2026-10-22) |
 | 3 | P-FET AO4407C (30 V, 14 A, 11.5 mOhm) | LCSC C469397 | E | JLC | High-side switch for 12 V tap A, tap B and the ESC branch |
 | 3 | 2N7002 | LCSC C8545 | B | JLC | Gate drivers for the three P-FETs (a fourth 2N7002 drives the SSR, below) |
 
@@ -50,7 +50,8 @@ v2 changes (2026-10-14): added 12 V branch switches, tap sense circuits and EN p
 | Qty | Part | PN | Lib | Asm | Notes |
 |---|---|---|---|---|---|
 | 1 | Raspberry Pi Pico 2 | LCSC C41407547 | E | Hand | Plug in |
-| 2 | 1x20 female socket (254PM-1x20P-V) | LCSC C53202183 | E | Hand | |
+| 2 | 1x20 female socket (254PM-1x20P-V) | LCSC C53202183 | E | Hand | 8.5 mm tall; SMD parts sit under the Pico between the sockets (decided 2026-10-24) |
+| 2 | 1x20 male pin header, 2.54 mm | TBD (or buy the Pico 2 H) | E | Hand | The Pico 2 ships without headers; **not yet sourced** |
 | 3 | Yellow LED 0603 (NCD0603Y2) | LCSC C89811 | P | JLC | 12 V, 5 V, 3.3 V rails (replaces the extended green LED) |
 | 1 | Red LED 0603 (KT-0603R) | LCSC C2286 | B | JLC | Mains present |
 | 4 | 33 k 0603 | LCSC C4216 | B | JLC | Mains LED dropper in series (about 132 k); counted again under the 33 k line below |
@@ -80,21 +81,22 @@ v2 changes (2026-10-14): added 12 V branch switches, tap sense circuits and EN p
 
 ## Counts
 - **Unique extended parts JLC places (fee applies): 12**: AP63205, AP63203, inductor, TPS2553, INA226, 5 mOhm shunt, 33 mOhm shunt, ACS712, NTC, bulk cap, fan PTC, AO4407C.
-- Extended LCSC parts that are hand-assembled (no JLC fee if you don't use JLC for them): IRM-90-12, barrier strip, MOV, XT60PW-F, screw terminal, Pico, sockets.
+- Extended LCSC parts that are hand-assembled (no JLC fee if you don't use JLC for them): IRM-90-12, barrier strip, MOV, XT60PB-F, screw terminal, Pico, sockets.
 - Basic/preferred (no fee): TVS (P), yellow LED (P), 10 uF, 22 uF, 100 nF, 10 k, 4.7 k, 33 k, 1.5 k, 680, 1 k, red LED, 1N4148W, SS14, 2N7002.
 - Digikey/Mouser hand parts: fan header, blade fuse holders, blade fuses, 3AG fuses, fuse clips.
 
-## Planned additions and swaps (decided 2026-10-21, not yet in the schematic)
+## Additions and swaps in the schematic (2026-10-22) and the PCB (2026-10-24)
+Current designators after the user re-annotated on 2026-10-24: U12 expander, U13 Pico, U14 transceiver, J10 link connector (5 V tap A), J9 is now 5 V tap B, SJ4 CAN termination jumper, SJ5 and SJ6 the SSR jumpers, R40 Rs, R41 120 ohm.
 | Change | Part | LCSC | Library | Note |
 |---|---|---|---|---|
-| CAN transceiver (new) | SN65HVD230DR | C12084 | preferred | SOIC-8, 3.3 V, 153k in stock, $0.57; datasheet not read yet |
-| I/O expander (new, for the 7 sense inputs) | PCA9535CPW,118 | C2652292 | extended | TSSOP-24, 1,874 in stock, $0.63 |
-| CAN termination (new) | 120 ohm resistor + solder jumper | basic | basic | closed by default |
-| CAN / 5 V link connector (new, proposed) | 4-pin: +5 V, GND, CANH, CANL | TBD | | replaces J9; connector family not chosen |
-| ESC connector (swap) | vertical female XT60: XT60PB-F or XT60PT-F | C19268038 or C54410821 | extended | replaces XT60PW-F C428722; drawing and footprint to verify |
-| Mounting holes H1 to H4 (swap) | `MountingHole_3.2mm_M3_Pad_Via` | - | - | M3 hardware instead of M2, floating |
+| CAN transceiver U14 (new) | SN65HVD230DR | C12084 | preferred | SOIC-8, 3.3 V, 153k in stock, $0.57; datasheet in `datasheets/` |
+| I/O expander U12 (new, for the 7 sense inputs; replaces the first choice, PCA9535CPW, C2652292) | TCA9534PWR | C783615 | extended | TSSOP-16, 11,514 in stock, $0.93 |
+| CAN termination R41 + SJ4 (new) | 120 ohm 0603 (0603WAF1200T5E) + solder jumper | C22787 | basic | closed by default; R40 10 k (Rs) and C19, C20 100 nF are existing basic values |
+| CAN / 5 V link connector J10 (new) | DB128V-5.08-4P-GN-S, pins 5 V, CANH, GND, CANL | C2915641 | extended | 102k in stock, $0.42; replaces the old 2P tap-A terminal (C2915639, one fewer 2P) |
+| ESC connector J6 (swap) | XT60PB-F vertical female | C19268038 | extended | replaces XT60PW-F C428722; footprint `HF_Footprints:XT60PBF` (from the user's ingest), not yet compared with the Amass drawing |
+| Mounting holes H1 to H4 (swap) | `MountingHole_3.2mm_M3_Pad_Via` | - | - | M3 hardware instead of M2, floating (schematic footprint changed 2026-10-22) |
 
 ## Optimization notes
-- Done: green LED to yellow (-1 extended), mains-LED resistors to basic 33 k 0603 (-1 extended), expander not used (-1 extended; reversed 2026-10-21, the PCA9535C is back for the sense inputs).
+- Done: green LED to yellow (-1 extended), mains-LED resistors to basic 33 k 0603 (-1 extended), expander not used (-1 extended; reversed 2026-10-21, the I/O expander is back for the sense inputs, as the 8-bit TCA9534PWR since 2026-10-24).
 - Possible, user's call: use one 33 mOhm or one 5 mOhm shunt everywhere (-1 extended, costs resolution on one rail); drop the NTC part by using the Pico's on-die temperature (loses the module/SSR sensing); skip the optional X2 cap.
 - Resistor values are all basic, so merging them (for example the LED resistors) saves only line items, not fees.

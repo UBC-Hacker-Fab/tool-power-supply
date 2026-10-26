@@ -2,10 +2,10 @@
 
 Source: `datasheets/RP-008299-DS-3-pico-2-datasheet.pdf` (26 usable GPIO: GP0-22 digital, GP26-28 digital or ADC; GP23/24/25/29 are internal). The pin numbers use the standard Pico pinout (the datasheet's Figure 2 is an image; confirm against the KiCad symbol). Logic is 3.3 V only.
 
-Requirement (user, 2026-10-14): self-test and remotely power-cycle every tap except the AC. The user decided on direct GPIOs for now (an I2C expander such as the PCA9535C, LCSC C2652292, is the fallback if more IO is needed), so 25 of the 26 GPIO are used.
+Requirement (user, 2026-10-14): self-test and remotely power-cycle every tap except the AC. The user decided on direct GPIOs for now (an I2C expander, then planned as the PCA9535C, LCSC C2652292, was the fallback if more IO is needed), so 25 of the 26 GPIO are used.
 
-## Planned change (decided 2026-10-21, not yet in the schematic)
-CAN link and I/O expander (details in `design-decisions.md`, 'Control link, I/O expander, connector and mounting changes'): the 7 SENSE inputs (GP0 to GP3, GP15, GP21, GP22) move to a PCA9535C on the I2C bus (address 0x20), freeing those 7 GPIOs. Two of them become CAN RX and TX for the can2040 PIO library (pins to be chosen; any two work) driving an SN65HVD230 transceiver. That leaves 20 of 26 GPIO used and 6 spare. The table below is the current schematic, unchanged until the edit is made.
+## Change applied to the schematic 2026-10-22 (decided 2026-10-21)
+CAN link and I/O expander (details in `design-decisions.md`, 'Control link, I/O expander, connector and mounting changes'): the 7 SENSE inputs move to a TCA9534PWR (U12; first drawn as a PCA9535C) on the I2C bus (address 0x20, P0 to P6 = 12V_A, 12V_B, ESC, 5V_A, 5V_B, 3V3_A, 3V3_B). **GP0 is now CAN_TX and GP1 CAN_RX** (can2040 PIO, SN65HVD230 U14); GP2, GP3, GP15, GP21 and GP22 are free (no-connect flags). That leaves 20 of 26 GPIO used and 6 spare (GP2, GP3, GP15, GP17, GP21, GP22). **The table below is the old assignment**: in it, rows GP0 to GP3, GP15, GP21 and GP22 (SENSE) no longer apply to the Pico, and GP0 and GP1 are the CAN pins.
 
 ## GPIO assignment
 | Pico pin | GPIO | Function | Connects to | Notes |
@@ -28,7 +28,7 @@ CAN link and I/O expander (details in `design-decisions.md`, 'Control link, I/O 
 | 20 | GP15 | SENSE 12 V tap A | tap output via 33 k / 10 k divider | |
 | 21 | GP16 | FAN PWM (25 kHz) | fan header pin 4 | PWM slice 0 ch A; drive open-drain style |
 | 22 | GP17 | spare | | PWM slice 0 ch B, keep free (the one spare) |
-| 24 | GP18 | SSR control | 2N7002 gate through 1 k (default; SSR on 5 V). SJ4/SJ5 can switch to direct GPIO drive | plain GPIO output, 4.7 k pulldown |
+| 24 | GP18 | SSR control | 2N7002 gate through 1 k (default; SSR on 5 V). SJ5/SJ6 (were SJ4/SJ5 before the 2026-10-24 re-annotation) can switch to direct GPIO drive | plain GPIO output, 4.7 k pulldown |
 | 25 | GP19 | FAN TACH | fan header pin 3 | 10 k pull-up to 3V3 |
 | 26 | GP20 | INA226 ALERT (optional) | 3x ALERT wire-ORed | open-drain, optional |
 | 27 | GP21 | SENSE 12 V tap B | tap output via 33 k / 10 k divider | |

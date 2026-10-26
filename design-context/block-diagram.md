@@ -43,7 +43,7 @@ flowchart LR
   TVS --> PTC
 
   subgraph R5["5 V rail"]
-    BK5["AP63205 buck\n+ INA226 #2 (0x41)"] --> TP1["TPS2553 x2"] --> OUT5["5 V taps A, B"]
+    BK5["AP63205 buck\n+ INA226 #2 (0x41)"] --> TP1["TPS2553 x2"] --> OUT5["5 V tap B, and tap A on\nthe control board link J10\n(5 V, CANH, GND, CANL)"]
   end
   subgraph R33["3.3 V rail"]
     BK33["AP63203 buck\n+ INA226 #3 (0x42)"] --> TP2["TPS2553 x2"] --> OUT33["3.3 V taps A, B"]
@@ -52,7 +52,9 @@ flowchart LR
   TVS --> BK33
 
   subgraph MCU["Raspberry Pi Pico 2"]
-    PICO["RP2350\nI2C, 25 GPIO, 3 ADC"]
+    PICO["RP2350\nI2C, CAN (can2040 PIO), 20 of 26 GPIO, 3 ADC"]
+    EXP["TCA9534\nI2C expander, 7 sense inputs"]
+    CANX["SN65HVD230\nCAN transceiver"]
     SSRSEL["SSR drive\n2N7002 on 5 V (default)\nor direct GPIO (solder jumpers)"]
   end
   BK5 --> SS14["SS14"] --> PICO
@@ -63,7 +65,9 @@ flowchart LR
   PICO -.->|"EN x4, FAULT x2"| TP1
   PICO -.->|"EN x4, FAULT x2"| TP2
   PICO -.->|"EN x3 via 2N7002"| T12
-  PICO -.->|"SENSE x7\n(downstream of switches)"| OUT12A
+  PICO -.->|"I2C"| EXP
+  EXP -.->|"SENSE x7\n(downstream of switches)"| OUT12A
+  PICO -.->|"CAN_TX, CAN_RX"| CANX -.->|"CANH, CANL"| OUT5
   PICO -.-> SSRSEL -.-> SSR
   PICO -.->|"PWM, tach"| FAN
   ACS -.->|"ADC0 via divider"| PICO

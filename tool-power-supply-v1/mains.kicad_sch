@@ -2367,17 +2367,6 @@
 		)
 		(uuid "26aef1da-eb2a-4f27-8ba8-4aa6d85b3494")
 	)
-	(text "N"
-		(exclude_from_sim no)
-		(at 66.04 171.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6488ce1d-c14a-474b-b24d-8289778fc882")
-	)
 	(text "4 x 33k = 132k across 120 VAC (170 V peak)\nI rms 0.91 mA: 0.11 W total, 27 mW per resistor (0603 is 0.1 W)\n42 V peak per resistor (0603 about 75 V working, verify)\nLED half-wave: I peak 1.3 mA, average 0.4 mA, 0.8 mW"
 		(exclude_from_sim no)
 		(at 88 114 0)
@@ -2400,17 +2389,6 @@
 		)
 		(uuid "6c123daf-86b0-4a29-86bb-0a7a6d7402e2")
 	)
-	(text "PE"
-		(exclude_from_sim no)
-		(at 60.96 184.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6c6eaacb-dbf8-4934-a78b-55396ea5add7")
-	)
 	(text "Module branch: 3 A time-lag 3AG, surge protection, IRM-90-12"
 		(exclude_from_sim no)
 		(at 88.9 91.44 0)
@@ -2422,17 +2400,6 @@
 			(justify left bottom)
 		)
 		(uuid "71656f53-db98-40dc-b1c2-b3047cbcc07e")
-	)
-	(text "L"
-		(exclude_from_sim no)
-		(at 55.88 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "728d26dc-5893-4c40-82f3-ed130509bb56")
 	)
 	(text "CHASSIS?"
 		(exclude_from_sim no)
@@ -6120,6 +6087,36 @@
 			"AAAAgEf/DwmK2lI12fEcAAAAAElFTkSuQmCC"
 		)
 	)
+	(label "NEUTRAL"
+		(at 52.07 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "73f98971-01f8-49d8-855e-2c224b3bae27")
+	)
+	(label "PE"
+		(at 52.07 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "97d023b5-b3f0-4a26-b695-fb4282977f8b")
+	)
+	(label "LIVE"
+		(at 52.07 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ae9cb8ce-b604-4402-9da0-6c73e2948377")
+	)
 	(hierarchical_label "ACS_OUT"
 		(shape output)
 		(at 274.32 63.5 0)
@@ -6163,7 +6160,7 @@
 				)
 			)
 		)
-		(property "Value" "M2 hole"
+		(property "Value" "M3 hole"
 			(at 68.072 208.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6173,7 +6170,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 63.5 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -7437,7 +7434,7 @@
 				)
 			)
 		)
-		(property "Value" "M2 hole"
+		(property "Value" "M3 hole"
 			(at 81.026 208.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7447,7 +7444,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 76.2 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -7921,7 +7918,7 @@
 				)
 			)
 		)
-		(property "Value" "M2 hole"
+		(property "Value" "M3 hole"
 			(at 93.726 208.534 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7931,7 +7928,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 88.9 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -8585,7 +8582,7 @@
 				)
 			)
 		)
-		(property "Value" "M2 hole"
+		(property "Value" "M3 hole"
 			(at 106.68 208.594 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8595,7 +8592,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 101.6 203.2 0)
 			(hide yes)
 			(show_name no)

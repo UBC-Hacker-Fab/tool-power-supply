@@ -116,7 +116,7 @@
       "v": 3.3,
       "parent": "5V_RAIL",
       "regulator": {
-        "ref": "U12",
+        "ref": "U13",
         "expect": "SC1631",
         "cap_A": 0.3,
         "eff": 0.8,
@@ -230,11 +230,11 @@
     },
     {
       "id": "tap_5V_A",
-      "name": "5 V tap A",
+      "name": "5 V tap A (control board link, J10)",
       "kind": "tap",
       "rail": "5V_RAIL",
       "connector": {
-        "ref": "J9",
+        "ref": "J10",
         "expect": "DB128V"
       },
       "chain": [
@@ -254,7 +254,7 @@
       "kind": "tap",
       "rail": "5V_RAIL",
       "connector": {
-        "ref": "J10",
+        "ref": "J9",
         "expect": "DB128V"
       },
       "chain": [
@@ -357,7 +357,7 @@
       "kind": "onboard",
       "rail": "5V_RAIL",
       "refs": [
-        "U12"
+        "U13"
       ],
       "nominal_A": 0.0127,
       "peak_A": 0.1,
@@ -365,17 +365,19 @@
     },
     {
       "id": "ob_mcu",
-      "name": "3V3(OUT): 3 x INA226, I2C pull-ups, NTC dividers",
+      "name": "3V3(OUT): 3 x INA226, TCA9534, SN65HVD230, I2C pull-ups, NTC dividers",
       "kind": "onboard",
       "rail": "3V3_MCU",
       "refs": [
         "U3",
         "U6",
-        "U7"
+        "U7",
+        "U12",
+        "U14"
       ],
-      "nominal_A": 0.0013,
-      "peak_A": 0.0016,
-      "source": "INA226 330 uA typ / 420 uA max each (datasheet), 2 NTC dividers 0.17 mA each at 25 C; I2C pull-ups only draw while pulling low (ignored)"
+      "nominal_A": 0.0113,
+      "peak_A": 0.0716,
+      "source": "INA226 330 uA typ / 420 uA max each (datasheet), 2 NTC dividers 0.17 mA each at 25 C; TCA9534 11 uA typ / 30 uA max (datasheet, 400 kHz, 3.6 V, inputs); SN65HVD230 ICC 10 mA typ / 17 mA max unloaded (datasheet), peak adds about 50 mA for a dominant bit driving the 60 ohm bus (ASSUMPTION, CAN differential drive into two 120 ohm terminations); I2C pull-ups only draw while pulling low (ignored)"
     }
   ],
   "scenarios": [

@@ -23,7 +23,7 @@ digraph G {
   subgraph cluster_t12 { label="12 V branches (fuse, then P-FET switch)"; style="rounded,filled"; fillcolor="#fff6dd"; color="#b9770e"; fontsize=11;
     B1 [label="3 A blade fuse\nAO4407C"]; OUT12A [label="12 V tap A"];
     B2 [label="3 A blade fuse\nAO4407C"]; OUT12B [label="12 V tap B"];
-    B3 [label="7.5 A blade fuse\nAO4407C"]; XT60 [label="XT60 female\nESC power (EMAX ESC)"];
+    B3 [label="7.5 A blade fuse\nAO4407C"]; XT60 [label="XT60PB-F vertical female\nESC power (EMAX ESC)"];
     PTC [label="PTC 500 mA"]; FAN [label="Fan header\n4-pin PWM (Noctua NF-A8)"];
     B1->OUT12A; B2->OUT12B; B3->XT60; PTC->FAN;
   }
@@ -36,10 +36,14 @@ digraph G {
     BK33->TP2->OUT33;
   }
   subgraph cluster_mcu { label="Raspberry Pi Pico 2"; style="rounded,filled"; fillcolor="#e8f0fb"; color="#2e5fa3"; fontsize=11;
-    PICO [label="RP2350\nI2C, 25 GPIO, 3 ADC"];
+    PICO [label="RP2350\nI2C, CAN (can2040 PIO), 20 of 26 GPIO, 3 ADC"];
+    EXP [label="TCA9534\nI2C expander, 7 sense inputs"];
+    CANX [label="SN65HVD230\nCAN transceiver"];
     SSRSEL [label="SSR drive\n2N7002 on 5 V (default)\nor direct GPIO (solder jumpers)"];
   }
   SS14 [label="SS14"];
+  LINK [label="Link connector J10\n5 V, CANH, GND, CANL"];
+  CTRL [label="Control board\n(another Pico 2, USB to lab computer)", fillcolor="#eeeeee"];
   NTC1 [label="NTC at the module"]; NTC2 [label="NTC on the SSR heat sink"];
   STAR [shape=circle, label="Star ground\nsolder jumpers:\nPE, DC GND, ESC,\nlogic, chassis", fillcolor="#eeeeee"];
 
@@ -55,7 +59,10 @@ digraph G {
   PICO->TP1 [style=dashed, label="EN x4, FAULT x2"];
   PICO->TP2 [style=dashed];
   PICO->B1 [style=dashed, label="EN x3 via 2N7002"];
-  PICO->OUT12A [style=dashed, label="SENSE x7\n(downstream of switches)"];
+  PICO->EXP [style=dashed, label="I2C"];
+  OUT12A->EXP [style=dashed, label="SENSE x7\n(downstream of switches)"];
+  PICO->CANX [style=dashed, label="CAN_TX, CAN_RX"]; CANX->LINK [style=dashed, label="CANH, CANL"];
+  OUT5->LINK [label="5 V tap A"]; LINK->CTRL [dir=both, label="CAN, 5 V power"];
   PICO->SSRSEL [style=dashed]; SSRSEL->SSR [style=dashed];
   PICO->FAN [style=dashed, label="PWM, tach"];
   ACS->PICO [style=dashed, label="ADC0 via divider"];
