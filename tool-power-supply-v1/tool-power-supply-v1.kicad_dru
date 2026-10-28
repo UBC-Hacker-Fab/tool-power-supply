@@ -12,7 +12,7 @@
 # Basic/functional insulation, line to neutral and mains to PE: 1.6 mm.
 # Intermediate nodes of the LED dropper chain (30 V steps) are left at the default clearance.
 (rule "mains_L_to_N_1.6mm"
-	(condition "A.NetName == 'Net-(D1-K)' && (B.NetName == 'Net-(F1-Pad1)' || B.NetName == 'Net-(F1-Pad2)' || B.NetName == 'Net-(J2-Pad1)' || B.NetName == 'Net-(U1-AC*L)')")
+	(condition "A.NetName == '/mains/NEUTRAL' && (B.NetName == '/mains/LIVE' || B.NetName == 'Net-(F1-Pad2)' || B.NetName == 'Net-(J2-Pad1)' || B.NetName == 'Net-(U1-AC*L)')")
 	(constraint clearance (min 1.6mm)))
 (rule "mains_to_PE_1.6mm"
 	(condition "A.NetClass == 'Mains' && B.NetClass == 'PE'")
@@ -24,3 +24,10 @@
 (rule "acs712_internal"
 	(condition "A.insideCourtyard('U2') && B.insideCourtyard('U2')")
 	(constraint clearance (min 0.2mm)))
+
+# INA226 (U3, U6, U7; VSSOP-10 DGS): the package has a 0.15 mm gap between pads, below the 0.2 mm default.  JLC 4-layer outer-layer
+# minimum spacing is 0.127 mm (1 oz), so 0.15 mm is manufacturable.  Only pad-to-pad inside the courtyard is relaxed; routing out of
+# the pads still uses the 0.2 mm default.
+(rule "ina226_pad_gap"
+	(condition "(A.insideCourtyard('U3') && B.insideCourtyard('U3')) || (A.insideCourtyard('U6') && B.insideCourtyard('U6')) || (A.insideCourtyard('U7') && B.insideCourtyard('U7'))")
+	(constraint clearance (min 0.15mm)))

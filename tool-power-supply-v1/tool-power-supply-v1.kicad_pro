@@ -203,7 +203,18 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0,
+        0.2,
+        0.25,
+        0.4,
+        0.8,
+        1.2,
+        1.6,
+        2.0,
+        3.0,
+        3.2
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -230,7 +241,28 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        },
+        {
+          "diameter": 0.5,
+          "drill": 0.3
+        },
+        {
+          "diameter": 0.6,
+          "drill": 0.3
+        },
+        {
+          "diameter": 0.8,
+          "drill": 0.4
+        },
+        {
+          "diameter": 1.0,
+          "drill": 0.5
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -506,7 +538,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 0.25,
         "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
@@ -525,10 +557,10 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.5,
+        "track_width": 3.0,
         "tuning_profile": "",
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "via_diameter": 1.0,
+        "via_drill": 0.5,
         "wire_width": 6
       },
       {
@@ -544,7 +576,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 2.0,
         "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
@@ -559,7 +591,11 @@
     "netclass_patterns": [
       {
         "netclass": "Mains",
-        "pattern": "Net-(F1-Pad1)"
+        "pattern": "/mains/LIVE"
+      },
+      {
+        "netclass": "Mains",
+        "pattern": "/mains/NEUTRAL"
       },
       {
         "netclass": "Mains",
@@ -572,10 +608,6 @@
       {
         "netclass": "Mains",
         "pattern": "Net-(U1-AC*L)"
-      },
-      {
-        "netclass": "Mains",
-        "pattern": "Net-(D1-K)"
       },
       {
         "netclass": "Mains",
@@ -595,11 +627,7 @@
       },
       {
         "netclass": "PE",
-        "pattern": "Net-(SJ1-A)"
-      },
-      {
-        "netclass": "PE",
-        "pattern": "Net-(SJ1-B)"
+        "pattern": "/mains/PE"
       }
     ]
   },
