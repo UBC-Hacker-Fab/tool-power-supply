@@ -2367,17 +2367,6 @@
 		)
 		(uuid "26aef1da-eb2a-4f27-8ba8-4aa6d85b3494")
 	)
-	(text "N"
-		(exclude_from_sim no)
-		(at 66.04 171.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6488ce1d-c14a-474b-b24d-8289778fc882")
-	)
 	(text "4 x 33k = 132k across 120 VAC (170 V peak)\nI rms 0.91 mA: 0.11 W total, 27 mW per resistor (0603 is 0.1 W)\n42 V peak per resistor (0603 about 75 V working, verify)\nLED half-wave: I peak 1.3 mA, average 0.4 mA, 0.8 mW"
 		(exclude_from_sim no)
 		(at 88 114 0)
@@ -2400,17 +2389,6 @@
 		)
 		(uuid "6c123daf-86b0-4a29-86bb-0a7a6d7402e2")
 	)
-	(text "PE"
-		(exclude_from_sim no)
-		(at 60.96 184.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6c6eaacb-dbf8-4934-a78b-55396ea5add7")
-	)
 	(text "Module branch: 3 A time-lag 3AG, surge protection, IRM-90-12"
 		(exclude_from_sim no)
 		(at 88.9 91.44 0)
@@ -2423,20 +2401,9 @@
 		)
 		(uuid "71656f53-db98-40dc-b1c2-b3047cbcc07e")
 	)
-	(text "L"
+	(text "CHASSIS?"
 		(exclude_from_sim no)
-		(at 55.88 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "728d26dc-5893-4c40-82f3-ed130509bb56")
-	)
-	(text "CHASSIS"
-		(exclude_from_sim no)
-		(at 86.614 215.392 0)
+		(at 115.824 214.376 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2456,18 +2423,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "02bfb3ce-9075-42bd-8d71-07e8ed48b1f0")
-	)
-	(junction
-		(at 144.78 185.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "08e3d81f-a054-4ffe-889f-9632509817dc")
-	)
-	(junction
-		(at 88.9 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0e21b418-69c2-4a9f-9722-a25c2bd7e224")
 	)
 	(junction
 		(at 254 43.18)
@@ -2494,18 +2449,6 @@
 		(uuid "37777f52-004c-4913-88f1-5eab6a50d2fc")
 	)
 	(junction
-		(at 134.62 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "468f9f50-8b84-49c9-ba4a-5bfbe2f17ebd")
-	)
-	(junction
-		(at 101.6 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5e009668-302b-4337-a719-fca036b4edb1")
-	)
-	(junction
 		(at 162.56 185.42)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2524,16 +2467,30 @@
 		(uuid "82b0d1d9-1d22-4b88-bc86-df5ba094394c")
 	)
 	(junction
-		(at 76.2 210.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a770ec2d-1e3f-43c8-9b29-5575b8e80feb")
-	)
-	(junction
 		(at 76.2 156.21)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f1bb5173-dbbf-4f19-857b-d9ad28f2519b")
+	)
+	(no_connect
+		(at 76.2 210.82)
+		(uuid "2ace5cd5-5901-4292-98d1-c38bde2c0ca0")
+	)
+	(no_connect
+		(at 101.6 210.82)
+		(uuid "509c1808-e006-443a-9f71-2335dd6cc855")
+	)
+	(no_connect
+		(at 144.78 210.82)
+		(uuid "87628a8c-4ee4-4849-a7c9-50f301c01eae")
+	)
+	(no_connect
+		(at 88.9 210.82)
+		(uuid "b4d76b33-0ae6-45c3-9bf9-ee3e4b402d59")
+	)
+	(no_connect
+		(at 63.5 210.82)
+		(uuid "dce9c505-fd32-42b8-8daa-808e8ed95f89")
 	)
 	(wire
 		(pts
@@ -2857,16 +2814,6 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 210.82) (xy 144.78 185.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8518a875-a47c-40c2-b9db-23891d5cc334")
-	)
-	(wire
-		(pts
 			(xy 134.62 210.82) (xy 134.62 223.52)
 		)
 		(stroke
@@ -2964,16 +2911,6 @@
 			(type default)
 		)
 		(uuid "c63daeb3-cdcf-459a-bcb7-d7888b492985")
-	)
-	(wire
-		(pts
-			(xy 63.5 210.82) (xy 134.62 210.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c65c5978-d43e-471a-9577-0f984dc354fe")
 	)
 	(wire
 		(pts
@@ -6150,6 +6087,36 @@
 			"AAAAgEf/DwmK2lI12fEcAAAAAElFTkSuQmCC"
 		)
 	)
+	(label "NEUTRAL"
+		(at 52.07 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "73f98971-01f8-49d8-855e-2c224b3bae27")
+	)
+	(label "PE"
+		(at 52.07 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "97d023b5-b3f0-4a26-b695-fb4282977f8b")
+	)
+	(label "LIVE"
+		(at 52.07 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ae9cb8ce-b604-4402-9da0-6c73e2948377")
+	)
 	(hierarchical_label "ACS_OUT"
 		(shape output)
 		(at 274.32 63.5 0)
@@ -6203,7 +6170,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 63.5 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -6455,7 +6422,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "51d4e00b-c53d-4439-9057-7d705d315c10")
@@ -7477,7 +7444,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 76.2 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -7606,7 +7573,7 @@
 		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "9af39939-2a8b-4092-a019-fb403762b8cd")
@@ -7700,7 +7667,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "14D241K"
+		(property "Value" "10D241K"
 			(at 164.49 141.3 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7711,7 +7678,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Varistor:RV_Disc_D16.5mm_W6.7mm_P7.5mm"
+		(property "Footprint" "Varistor:RV_Disc_D12mm_W5.4mm_P7.5mm"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7744,7 +7711,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C49072887"
+		(property "LCSC" "C49072899"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7755,7 +7722,7 @@
 				)
 			)
 		)
-		(property "MPN" "14D241K"
+		(property "MPN" "10D241K"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7766,7 +7733,7 @@
 				)
 			)
 		)
-		(property "Note" "Verify disc size against datasheet"
+		(property "Note" "Verify disc size and thickness against the C49072899 datasheet; footprint is the 12 mm disc, 5.4 mm thick"
 			(at 161.29 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -7961,7 +7928,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 88.9 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -8625,7 +8592,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 101.6 203.2 0)
 			(hide yes)
 			(show_name no)

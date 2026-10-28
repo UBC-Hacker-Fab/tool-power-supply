@@ -25,16 +25,21 @@ Checked against `~/Documents/Github/hackerfab-kicadlibs` (the HF_* libraries) an
 | ACS712ELCTR-20A-T | `Sensor_Current:ACS712xLCTR-20A` : `Package_SO:SOIC-8_3.9x4.9mm_P1.27mm` |
 | 2N7002 | `Transistor_FET:2N7002` : `Package_TO_SOT_SMD:SOT-23` |
 | AO4407C P-FET | no AO4407 symbol in stock; use a stock single SO-8 P-FET such as `Transistor_FET:FDS9435A` or `IRF7404` (same S-S-S-G-D-D-D-D pin order, which I believe but have not verified against the AO4407C datasheet), set Value and MPN to AO4407C, footprint `Package_SO:SOIC-8_3.9x4.9mm_P1.27mm` |
-| Raspberry Pi Pico 2 | `MCU_Module:RaspberryPi_Pico` : `Module:RaspberryPi_Pico_Common_THT` (or the 2 x 1x20 sockets, `Connector_PinSocket_2.54mm:PinSocket_1x20_P2.54mm_Vertical`) |
+| Raspberry Pi Pico 2 | `MCU_Module:RaspberryPi_Pico` : `Module:RaspberryPi_Pico_Common_THT` on 2 x 1x20 sockets (254PM-1x20P-V, 8.5 mm tall; sockets are BOM-only, they share the Pico's through holes). In the PCB the footprint's courtyard is edited to two socket strips and its Pico W antenna keep-out is removed so parts can sit under the module (2026-10-24) |
 | SMCJ15A TVS | `Device:D_TVS` : `Diode_SMD:D_SMC` |
 | SS14 | `Diode:SS14` : `Diode_SMD:D_SMA` |
 | 1N4148W | `Diode:1N4148W` : `Diode_SMD:D_SOD-123` |
 | NTC 10 k, 0603 | `Device:Thermistor_NTC` : `Resistor_SMD:R_0603_1608Metric` |
 | PTC fan fuse, 1206 | `Device:Polyfuse` : `Fuse:Fuse_1206_3216Metric` |
-| MOV 14D241K | `Device:Varistor` : `Varistor:RV_Disc_D15.5mm_W...mm_P7.5mm` or `D16.5mm_W6.7mm_P7.5mm`; pick the one matching the 14D disc dimensions |
+| MOV 10D241K (C49072899, 2026-10-16; was 14D241K) | `Device:Varistor` : `Varistor:RV_Disc_D12mm_W5.4mm_P7.5mm` (courtyard 12.6 x 6.0 mm vs 17.1 x 7.3 for the old D16.5 footprint). 10D series sheets give 12.5 mm max diameter and 5.2 mm max thickness for the 241K; not checked against the LCSC part's own drawing |
+| Mounting holes H1 to H4 (2026-10-22: schematic footprint is now `MountingHole:MountingHole_3.2mm_M3_Pad_Via`, floating; the PCB still has the M2 footprints; the rest of this row describes the old M2 state) | `MountingHole:MountingHole_2.2mm_M2_Pad` (2.2 mm hole, 4.4 mm pad, 5.0 x 5.0 mm courtyard; the M3 pad version was 7 x 7). The pad is wired to the chassis net (SJ1 pin A) |
 | Shunts | `Device:R_Shunt` : `Resistor_SMD:R_2512_6332Metric` (5 mOhm), `R_1206_3216Metric` (33 mOhm) |
 | Bulk cap 100 uF 35 V | `Device:C_Polarized` : `Capacitor_SMD:CP_Elec_6.3x7.7` |
-| XT60PW-F | `Connector_Generic:Conn_01x02` : `Connector_AMASS:AMASS_XT60PW-F_1x02_P7.20mm_Horizontal` |
+| XT60PB-F (J6, since 2026-10-22; was XT60PW-F) | `HF_Connectors:XT60PB-F` : `HF_Footprints:XT60PBF` (pads 6.69 mm, 4.46 mm drills, 7.2 mm pitch, pad 1 square; ingested by the user from the Component Search Engine package). Not compared with the Amass drawing yet. |
+| SN65HVD230DR (U14, 2026-10-22) | `Interface_CAN_LIN:SN65HVD230` : `Package_SO:SOIC-8_3.9x4.9mm_P1.27mm` |
+| TCA9534PWR (U12, 2026-10-24; replaced the PCA9535CPW) | `Interface_Expansion:TCA9534` : `Package_SO:TSSOP-16_4.4x5mm_P0.65mm` (stock KiCad symbol; the pinout matches the PWR package) |
+| CAN termination jumper SJ4 | `Jumper:SolderJumper_2_Bridged` : `Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm` |
+| Link connector J10 | `Connector:Screw_Terminal_01x04` : `TerminalBlock_CUI:TerminalBlock_CUI_TB007-508-04_1x04_P5.08mm_Horizontal` (DB128V-5.08-4P-GN-S) |
 | Fan header, Molex 47053-1000 | `Connector_Generic:Conn_01x04` : `Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical` (same 2.54 mm pitch; check the 47053 drawing) |
 | LEDs, R/C, 100 nF, 1N4148 | `Device:LED`, `Device:R_Small`, `Device:C_Small` with the 0603, 0805 and 1206 footprints in `LED_SMD`, `Resistor_SMD`, `Capacitor_SMD` |
 | Inductor symbol | `Device:L` (footprint from section 1) |
@@ -53,4 +58,4 @@ Checked against `~/Documents/Github/hackerfab-kicadlibs` (the HF_* libraries) an
 Custom HF library parts `HF_Passives:Fuse_3AG_6.3x32mm` and footprint `Fuse_3AG_6.3x32mm_Clips_Littelfuse_102_122_P34.21mm` replace the clip-by-clip approach in section 4. Pad positions (origin at the fuse centre): clip 1 at x = -17.105 and -9.485 mm, clip 2 at +9.485 and +17.105 mm, 2.97 mm pads, 1.98 mm drills. These are from the Littelfuse 102/122 datasheet (7.62 mm pin spacing, A = 1.347 in) and match the KiCad stock `Fuseholder_Clip-6.3x32mm_Littelfuse_102_122_Inline_P34.21x7.62mm_D1.98mm_Horizontal` pads; the stock footprint was not used because the HF one carries the 01020074Z 3D models and the symbol default. The earlier suggestion to use the stock 102071 footprint (34.70 x 7.60 mm) is superseded: 102071 is a different clip.
 
 ## 6. Blade fuse with its holder (2026-10-15)
-Custom HF library parts `HF_Passives:Fuse_Blade_Keystone_3557` and footprint `Fuse_Blade_Keystone_3557-20_P13.47mm` (the vendor 355720 footprint with pads renumbered 1,1 / 2,2 and `duplicate_pad_numbers_are_jumpers`, same 3D model). F3, F4 and F7 use it, so the Keystone holder is no longer a schematic symbol. Hand-made like the 3AG fuse (`sources/Fuse_Blade_Keystone_3557.json`), uncommitted in `hackerfab-kicadlibs`.
+Custom HF library parts `HF_Passives:Fuse_Blade_Keystone_3557` and footprint `Fuse_Blade_Keystone_3557-20_P13.47mm` (the vendor 355720 footprint with pads renumbered 1,1 / 2,2 and `duplicate_pad_numbers_are_jumpers`, same 3D model). F4, F5 and F6 use it, so the Keystone holder is no longer a schematic symbol. Hand-made like the 3AG fuse (`sources/Fuse_Blade_Keystone_3557.json`), uncommitted in `hackerfab-kicadlibs`.

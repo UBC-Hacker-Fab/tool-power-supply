@@ -8,9 +8,9 @@ Mermaid source (renders on GitHub and in most Markdown viewers). Built from `des
 flowchart LR
   subgraph MAINS["Mains zone (120 VAC, L / N / PE)"]
     ACIN["AC in\n3P barrier strip"]
-    MOV["MOV 14D241K\nL-N"]
+    MOV["MOV 10D241K\nL-N"]
     LED_M["Mains LED\n4x 33k + 1N4148W + red LED"]
-    F3["3 A Slo-Blo 3AG\nmodule branch"]
+    F2["3 A Slo-Blo 3AG\nmodule branch"]
     F10["10 A fast-blow 3AG\nfurnace branch"]
     ACS["ACS712-20A\nfurnace current"]
     ACOUT["AC out\n3P barrier strip"]
@@ -22,7 +22,7 @@ flowchart LR
 
   ACIN --> MOV
   ACIN -.-> LED_M
-  ACIN --> F3 --> IRM
+  ACIN --> F2 --> IRM
   ACIN --> F10 --> ACS --> ACOUT --> SSR --> FURN
 
   subgraph BUS["12 V bus"]
@@ -43,7 +43,7 @@ flowchart LR
   TVS --> PTC
 
   subgraph R5["5 V rail"]
-    BK5["AP63205 buck\n+ INA226 #2 (0x41)"] --> TP1["TPS2553 x2"] --> OUT5["5 V taps A, B"]
+    BK5["AP63205 buck\n+ INA226 #2 (0x41)"] --> TP1["TPS2553 x2"] --> OUT5["5 V tap B, and tap A on\nthe control board link J10\n(5 V, CANH, GND, CANL)"]
   end
   subgraph R33["3.3 V rail"]
     BK33["AP63203 buck\n+ INA226 #3 (0x42)"] --> TP2["TPS2553 x2"] --> OUT33["3.3 V taps A, B"]
@@ -52,7 +52,9 @@ flowchart LR
   TVS --> BK33
 
   subgraph MCU["Raspberry Pi Pico 2"]
-    PICO["RP2350\nI2C, 25 GPIO, 3 ADC"]
+    PICO["RP2350\nI2C, CAN (can2040 PIO), 20 of 26 GPIO, 3 ADC"]
+    EXP["TCA9534\nI2C expander, 7 sense inputs"]
+    CANX["SN65HVD230\nCAN transceiver"]
     SSRSEL["SSR drive\n2N7002 on 5 V (default)\nor direct GPIO (solder jumpers)"]
   end
   BK5 --> SS14["SS14"] --> PICO
@@ -63,7 +65,9 @@ flowchart LR
   PICO -.->|"EN x4, FAULT x2"| TP1
   PICO -.->|"EN x4, FAULT x2"| TP2
   PICO -.->|"EN x3 via 2N7002"| T12
-  PICO -.->|"SENSE x7\n(downstream of switches)"| OUT12A
+  PICO -.->|"I2C"| EXP
+  EXP -.->|"SENSE x7\n(downstream of switches)"| OUT12A
+  PICO -.->|"CAN_TX, CAN_RX"| CANX -.->|"CANH, CANL"| OUT5
   PICO -.-> SSRSEL -.-> SSR
   PICO -.->|"PWM, tach"| FAN
   ACS -.->|"ADC0 via divider"| PICO

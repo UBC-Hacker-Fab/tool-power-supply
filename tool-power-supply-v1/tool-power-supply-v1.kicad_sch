@@ -49,6 +49,16 @@
 		)
 		(uuid "132755ff-ed31-4ef3-b85f-cc3a9f7231bc")
 	)
+	(wire
+		(pts
+			(xy 173.99 149.86) (xy 232.41 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1d3e0b1a-37bf-49bc-bb60-393a7ed2f62c")
+	)
 	(bus
 		(pts
 			(xy 173.99 83.82) (xy 240.03 83.82)
@@ -151,6 +161,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 96.52) (xy 275.59 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5dd4cf87-3f30-4bd8-b5d4-2c1a517e7152")
+	)
+	(wire
+		(pts
 			(xy 105.41 55.88) (xy 105.41 69.85)
 		)
 		(stroke
@@ -158,6 +178,16 @@
 			(type default)
 		)
 		(uuid "63d367a4-0694-409a-93d2-8b632b9ca889")
+	)
+	(wire
+		(pts
+			(xy 232.41 149.86) (xy 232.41 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "688b7640-9241-4989-97bd-68c5f664f618")
 	)
 	(bus
 		(pts
@@ -483,6 +513,16 @@
 				(justify left)
 			)
 		)
+		(pin "5V_LINK" input
+			(at 275.59 96.52 180)
+			(uuid "ef91e39d-f899-4cd6-989a-d99d1aa3ec73")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "tool-power-supply-v1"
 				(path "/38374745-796d-4ac0-8538-65a2602e3d35"
@@ -628,6 +668,16 @@
 		(pin "I2C{SDA SCL ALERT}" bidirectional
 			(at 173.99 144.78 0)
 			(uuid "5aab9917-047c-4f2a-b97e-2bec082d9818")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "5V_LINK" output
+			(at 173.99 149.86 0)
+			(uuid "878ed272-ca86-4899-b84e-3f84c6dd4829")
 			(effects
 				(font
 					(size 1.27 1.27)
